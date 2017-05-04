@@ -1,4 +1,4 @@
 *.pyc
 *~
 dist/
-fiduswriter_ojs.egg-info/
+fiduswriter_citation_api_import.egg-info/
