@@ -19,8 +19,7 @@ export class DataciteSearcher {
         return new Promise(resolve => {
             jQuery.ajax({
                 data: {
-                    'query': searchTerm,
-                    'member-id' : 'gesis'
+                    'query': searchTerm
                 },
                 dataType: "json",
                 url: 'https://api.datacite.org/works?/select',
@@ -28,7 +27,7 @@ export class DataciteSearcher {
                     let items = result['data']
                     jQuery("#bibimport-search-result-datacite").empty()
                     if (items.length) {
-                        jQuery("#bibimport-search-result-datacite").html(gettext('<h3>Dara</h3>'))
+                        jQuery("#bibimport-search-result-datacite").html('<h3>Datacite</h3>')
                     }
                     jQuery('#bibimport-search-result-datacite').append(
                         searchApiResultDataciteTemplate({items})
