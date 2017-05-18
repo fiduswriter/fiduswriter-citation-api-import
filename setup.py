@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='fiduswriter-citation-api-import',
-    version='3.1.10',
+    version='3.1.11',
     packages=find_packages(),
     include_package_data=True,
     license='AGPL License',

@@ -44,7 +44,7 @@ export class DataciteSearcher {
         jQuery.ajax({
             dataType: 'text',
             method: 'GET',
-            url: `https://search.datacite.org/citation?format=bibtex&doi=${doi}`,
+            url: `https://data.datacite.org/application/x-bibtex/${doi}`,
             success: response => {
                 this.importer.importBibtex(response)
             }
