@@ -18,8 +18,15 @@ export let searchApiResultSowiportTemplate = _.template('\
     <div class="item">\
         <button type="button" class="api-import fw-button fw-orange fw-small" data-id="<%= item.id %>">' + gettext('Import') + '</button>\
         <h3>\
-            <%= item.title %>\
+            <%= item.title_full %>\
         </h3>\
+        <% if (item.person_author_txtP_mv) {%>\
+            <p>\
+                <b>'+ gettext('Author(s)')+':</b> \
+                <%= item.person_author_txtP_mv.join("; ") %>\
+            </p>\
+        <% } %>\
+        <% if (item.publishDate) { %><p><b>'+ gettext('Published')+':</b> <%= item.publishDate[0] %></p><% } %>\
         <% if (item.doi) { %><p><b>DOI:</b> <%= item.doi %></p><% } %>\
         <% if (item.description) { %><p><%= item.description %></p><% } %>\
     </div>\
@@ -33,8 +40,15 @@ export let searchApiResultDataciteTemplate = _.template('\
         <h3>\
             <%= item.attributes.title %>\
         </h3>\
+        <% if (item.attributes.author) {%>\
+            <p>\
+                <b>'+ gettext('Author(s)')+':</b> \
+                <%= item.attributes.author.map(function(author) {return author.literal ? author.literal : author.family + " " + author.given}).join(", ") %>\
+            </p>\
+        <% } %>\
+        <% if (item.attributes.published) { %><p><b>'+ gettext('Published')+':</b> <%= item.attributes.published %></p><% } %>\
         <% if (item.attributes.doi) { %><p><b>DOI:</b> <%= item.attributes.doi %></p><% } %>\
-        <% if (item.description) { %><p><%= item.description %></p><% } %>\
+        <% if (item.attributes.description) { %><p><%= item.attributes.description.length < 200 ? item.attributes.description : item.attributes.description.substring(0, 200) + "..." %></p><% } %>\
     </div>\
    <% })  %> \
 ')
@@ -60,6 +74,7 @@ export let searchApiResultWorldCatTemplate = _.template('\
         <h3>\
             <%= _.values(item.title) %>\
         </h3>\
+        <% if (item.summary) { var description = _.values(item.summary); %><p><%= description.length < 200 ? description : description.substring(0, 200) + "..." %></p><% } %>\
     </div>\
    <% })  %> \
 ')

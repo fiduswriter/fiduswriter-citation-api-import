@@ -33,6 +33,7 @@ class Proxy(DjangoHandlerMixin, RequestHandler):
                 query = query + '&' + api_key
             else:
                 query = api_key
+            print query
         if query:
             url += '?' + query
         http = AsyncHTTPClient()

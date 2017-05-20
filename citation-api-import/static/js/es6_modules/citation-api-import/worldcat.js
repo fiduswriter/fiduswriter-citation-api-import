@@ -16,11 +16,8 @@ export class WorldcatSearcher {
     lookup(searchTerm) {
         return new Promise(resolve => {
             jQuery.ajax({
-                data: {
-                    'q': searchTerm
-                },
                 dataType: "xml",
-                url: '/proxy/citation-api-import/http://www.worldcat.org/webservices/catalog/search/opensearch?/select/',
+                url: `/proxy/citation-api-import/http://www.worldcat.org/webservices/catalog/search/opensearch?q=${searchTerm}`,
                 success: result => {
                     if (result === null) {
                         // No result -- likely due to missing API key.
