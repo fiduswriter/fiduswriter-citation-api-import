@@ -28,7 +28,7 @@ export let searchApiResultSowiportTemplate = _.template('\
         <% } %>\
         <% if (item.publishDate) { %><p><b>'+ gettext('Published')+':</b> <%= item.publishDate[0] %></p><% } %>\
         <% if (item.doi) { %><p><b>DOI:</b> <%= item.doi %></p><% } %>\
-        <% if (item.description) { %><p><%= item.description %></p><% } %>\
+        <% if (item.description) { %><p><%= item.description.length < 200 ? item.description : item.description.substring(0, 200) + "..." %></p><% } %>\
     </div>\
    <% })  %> \
 ')
@@ -61,7 +61,7 @@ export let searchApiResultCrossrefTemplate = _.template('\
             <%= item.fullCitation ? item.fullCitation : item.title + " " + item.year %>\
         </h3>\
         <% if (item.doi) { %><p><b>DOI:</b> <%= item.doi %></p><% } %>\
-        <% if (item.description) { %><p><%= item.description %></p><% } %>\
+        <% if (item.description) { %><p><%= item.description.length < 200 ? item.description : item.description.substring(0, 200) + "..." %></p><% } %>\
     </div>\
    <% })  %> \
 ')
