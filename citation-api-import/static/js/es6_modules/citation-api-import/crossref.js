@@ -21,7 +21,7 @@ export class CrossrefSearcher {
                     'q': searchTerm,
                 },
                 dataType: "json",
-                url: 'http://search.crossref.org/dois',
+                url: 'https://search.crossref.org/dois',
 
                 success: items => {
 
@@ -40,11 +40,11 @@ export class CrossrefSearcher {
     }
 
     getBibtex(doi) {
-        doi = doi.replace('http://dx.doi.org/','')
+        doi = doi.replace('https://dx.doi.org/','')
         jQuery.ajax({
             dataType: 'text',
             method: 'GET',
-            url: `http://api.crossref.org/works/${doi}/transform/application/x-bibtex`,
+            url: `https://api.crossref.org/works/${doi}/transform/application/x-bibtex`,
             success: response => {
                 this.importer.importBibtex(response)
             },
