@@ -4,6 +4,7 @@ import {searchApiTemplate} from "./templates"
 import {DataciteSearcher} from "./datacite"
 import {CrossrefSearcher} from "./crossref"
 import {SowiportSearcher} from "./sowiport"
+import {SCMKGSearcher} from "./scmkg"
 import {WorldcatSearcher} from "./worldcat"
 
 export class BibLatexApiImporter {

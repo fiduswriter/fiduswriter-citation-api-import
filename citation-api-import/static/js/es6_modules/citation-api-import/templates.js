@@ -33,6 +33,26 @@ export let searchApiResultSowiportTemplate = _.template('\
    <% })  %> \
 ')
 
+export let searchApiResultSCMKGTemplate= _.template('\
+    <%  _.each(items, function(item) {%>\
+    <div class="item">\
+        <button type="button" class="api-import fw-button fw-orange fw-small" data-id="<%= item.id %>">' + gettext('Import') + '</button>\
+        <h3>\
+            <%= item.title_full %>\
+        </h3>\
+        <% if (item.person_author_txtP_mv) {%>\
+            <p>\
+                <b>'+ gettext('Author(s)')+':</b> \
+                <%= item.person_author_txtP_mv.join("; ") %>\
+            </p>\
+        <% } %>\
+        <% if (item.publishDate) { %><p><b>'+ gettext('Published')+':</b> <%= item.publishDate[0] %></p><% } %>\
+        <% if (item.doi) { %><p><b>DOI:</b> <%= item.doi %></p><% } %>\
+        <% if (item.description) { %><p><%= item.description.length < 200 ? item.description : item.description.substring(0, 200) + "..." %></p><% } %>\
+    </div>\
+   <% })  %> \
+')
+
 export let searchApiResultDataciteTemplate = _.template('\
     <%  _.each(items, function(item) {%>\
     <div class="item">\
