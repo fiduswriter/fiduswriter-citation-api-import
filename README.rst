@@ -17,13 +17,14 @@ Installation
 2. Within the virtual environment set up for your Fidus Writer instance,
    running `pip install fiduswriter-citation-api-import`
 
-3. Add "citation-api-import" to your INSTALLED_APPS setting in the
-   configuration.py file like this::
+3. Take the original INSTALLED_APPS tuple from /fiduswriter/setting.py and  
+   add "citation-api-import" to your INSTALLED_APPS setting in the
+   configuration.py file like this:
 
-    INSTALLED_APPS = [
+    INSTALLED_APPS = (
         ...
         'citation-api-import',
-    ]
+    )
 
 4. Run `python manage.py transpile` to create the needed JavaScript files.
 
