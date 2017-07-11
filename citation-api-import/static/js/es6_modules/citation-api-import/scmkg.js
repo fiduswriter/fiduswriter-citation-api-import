@@ -58,10 +58,11 @@ LIMIT 25`
                     }
                     let json = JSON.parse(result)
                     let items = json['results']['bindings']
-                    jQuery("#bibimport-search-result-sowiport").empty()
-                      jQuery("#bibimport-search-result-sowiport").html('<h3>Sowiport</h3>')
+                    jQuery("#bibimport-search-result-scmkg").empty()
+                    if (items.length) {
+                      jQuery("#bibimport-search-result-scmkg").html('<h3>SCM-KG</h3>')
                     }
-                    jQuery('#bibimport-search-result-sowiport').append(
+                    jQuery('#bibimport-search-result-scmkg').append(
                         searchApiResultSowiportTemplate({items})
                     )
                     this.bind()
