@@ -8,14 +8,14 @@ export class SCMKGSearcher {
 
     bind() {
         let that = this
-        jQuery('#bibimport-search-result-sowiport .api-import').on('click', function() {
+        jQuery('#bibimport-search-result-scmkg .api-import').on('click', function () {
             let id = jQuery(this).attr('data-id')
-            that.getBibtex(paperUri)
+            that.getBibtex(id)
         })
     }
 
 
-    makeAuthorPapersSparqlQuery(authorName){
+    makeAuthorPapersSparqlQuery(authorName) {
         squery = `SELECT  distinct ?paperTitle ?year ?pages  ?authorName    (group_concat(distinct ?authorName2;separator="; ")
   as ?authorNames) 
 WHERE {
@@ -38,57 +38,56 @@ LIMIT 25`
     }
 
     lookup(searchTerm) {
-
-
-   sparqlquery = makeAuthorPapersSparqlQuery(searchTerm)
-        return new Promise(resolve => {
-            jQuery.ajax({
-                data: {
-                    'format': 'json',
-                    'q': searchTerm,
-                    'do': 'overall',
-                },
-                dataType: "text", // DataType is an empty text string in case there is no api key.
-                url: `/proxy/citation-api-import/http://butterbur10.iai.uni-bonn.de/SCMKG/query?query=${sparqlquery}`,
-                success: result => {
-                    if (result === '') {
-                        // No result -- likely due to missing API key.
-                        resolve()
-                        return
-                    }
-                    let json = JSON.parse(result)
-                    let items = json['results']['bindings']
-                    jQuery("#bibimport-search-result-scmkg").empty()
-                    if (items.length) {
-                      jQuery("#bibimport-search-result-scmkg").html('<h3>SCM-KG</h3>')
-                    }
-                    jQuery('#bibimport-search-result-scmkg').append(
-                        searchApiResultSowiportTemplate({items})
-                    )
-                    this.bind()
-                    resolve()
-                }
-
-            })
-        })
+        sparqlquery = makeAuthorPapersSparqlQuery(searchTerm)
+        return new Promise(resolve = > {
+                jQuery.ajax({
+                    data: {
+                        'format': 'json',
+                        'q': searchTerm,
+                        'do': 'overall',
+                    },
+                    dataType: "text", // DataType is an empty text string in case there is no api key.
+                    url: `/proxy/citation-api-import/http://butterbur10.iai.uni-bonn.de/SCMKG/query?query=${sparqlquery}`,
+                    success: result = > {
+                    if (result === '')
+        {
+            // No result -- likely due to missing API key.
+            resolve()
+            return
+        }
+        let json = JSON.parse(result)
+        let items = json['results']['bindings']
+        jQuery("#bibimport-search-result-scmkg").empty()
+        if (items.length) {
+            jQuery("#bibimport-search-result-scmkg").html('<h3>SCM-KG</h3>')
+        }
+        jQuery('#bibimport-search-result-scmkg').append(
+            searchApiResultSowiportTemplate({items})
+        )
+        this.bind()
+        resolve()
     }
 
-     getBibtex(paperUri) {
+    })
+    })
+    }
+
+    getBibtex(searchTerm) {
         isbn = isbn.replace('urn:ISBN:', '')
         jQuery.ajax({
-            dataType: 'text',
-            method: 'GET',
+                dataType: 'text',
+                method: 'GET',
 
-            url: `/proxy/citation-api-import/http://xisbn.worldcat.org/webservices/xid/isbn/${isbn}?method=getMetadata&format=json&fl=*`,
+                url: `/proxy/citation-api-import/http://butterbur10.iai.uni-bonn.de/SCMKG/query?query=${sparqlquery}`,
 
-            success: response => {
+                success: response = > {
                 let bibStr = this.isbnToBibtex(response)
                 this.importer.importBibtex(bibStr)
-            },
-            error: function(xhr) {
-                console.error(xhr.status)
-            }
-        })
+    },
+        error: function (xhr) {
+            console.error(xhr.status)
+        }
+    })
     }
 
     isbnToBibtex(results) {
