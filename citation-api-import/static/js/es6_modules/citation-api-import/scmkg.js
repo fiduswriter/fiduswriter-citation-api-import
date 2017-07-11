@@ -39,7 +39,7 @@ LIMIT 25`
 
     lookup(searchTerm) {
         sparqlquery = makeAuthorPapersSparqlQuery(searchTerm)
-        return new Promise(resolve = > {
+        return new Promise(resolve => {
                 jQuery.ajax({
                     data: {
                         'format': 'json',
