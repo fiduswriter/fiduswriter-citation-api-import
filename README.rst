@@ -16,13 +16,13 @@ If you are not a developer and only want to use the plugin skip this part and go
 Developers of the plugin should follow this steps instead of the regular Installation. This installs the plugin as a
 folder in FidusWriter and can be extended and get debugged similar to main FidusWriter code.
 
- 1. Clone the plugin folder from here to in a directory in your system
+1. Clone the plugin folder from here to in a directory in your system.
  
- 2. Link the app folder of the plugin directly into the main fiduswriter installation. The pluginfolder is for example "fiduswriter/citation-api-import" for this plugin. (Using "ln" command in ubuntu)
+2. Link the app folder of the plugin directly into the main fiduswriter installation. The pluginfolder is for example "fiduswriter/citation-api-import" for this plugin. (Using "ln" command in ubuntu)
 
- 3. By each change of the plugin by extension perform a "manage.py transpile" to take the java script code changes in effect.
+3. By each change of the plugin by extension perform a "manage.py transpile" to take the java script code changes in effect.
  
- 4. Add "citation-api-import" to your INSTALLED_APPS setting in the
+4. Add "citation-api-import" to your INSTALLED_APPS setting in the
    configuration.py file like this::
 
     INSTALLED_APPS += (
@@ -30,9 +30,9 @@ folder in FidusWriter and can be extended and get debugged similar to main Fidus
         'citation-api-import',
     )
 
- 5. Run `python manage.py transpile` to create the needed JavaScript files.
+5. Run `python manage.py transpile` to create the needed JavaScript files.
 
- 6. (Re)start your Fidus Writer server
+6. (Re)start your Fidus Writer server
 
 
 Installation
