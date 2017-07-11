@@ -80,7 +80,7 @@ LIMIT 25`
 
                 url: `/proxy/citation-api-import/http://butterbur10.iai.uni-bonn.de/SCMKG/query?query=${sparqlquery}`,
 
-                success: response = > {
+                success: response => {
                 let bibStr = this.isbnToBibtex(response)
                 this.importer.importBibtex(bibStr)
     },
