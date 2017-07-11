@@ -67,7 +67,7 @@ LIMIT 25`
                     )
                     this.bind()
                     resolve()
-                }  if (items.length) {
+                }
 
             })
         })
