@@ -18,7 +18,7 @@ folder in FidusWriter and can be extended and get debugged similar to main Fidus
 
  1. Clone the plugin folder from here to in a directory in your system
  
- 2.link the app folder of the plugin directly into the main fiduswriter installation. The pluginfolder is for example "fiduswriter/citation-api-import" for this plugin. (Using "ln" command in ubuntu)
+ 2. Link the app folder of the plugin directly into the main fiduswriter installation. The pluginfolder is for example "fiduswriter/citation-api-import" for this plugin. (Using "ln" command in ubuntu)
 
  3. By each change of the plugin by extension perform a "manage.py transpile" to take the java script code changes in effect.
  
