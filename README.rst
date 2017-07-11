@@ -13,7 +13,8 @@ Note For Developers:
 -----------
 If you are not a developer and only want to use the plugin skip this part and go directly to Installation section.
 
-Developers of the plugin should follow this steps instead of the regular Installation:
+Developers of the plugin should follow this steps instead of the regular Installation. This installs the plugin as a
+folder in FidusWriter and can be extended and get debugged similar to main FidusWriter code.
 
  1. Clone the plugin folder from here to in a directory in your system
  
