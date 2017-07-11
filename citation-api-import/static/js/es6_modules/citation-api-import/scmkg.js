@@ -48,7 +48,7 @@ LIMIT 25`
                     },
                     dataType: "text", // DataType is an empty text string in case there is no api key.
                     url: `/proxy/citation-api-import/http://butterbur10.iai.uni-bonn.de/SCMKG/query?query=${sparqlquery}`,
-                    success: result = > {
+                    success: result => {
                     if (result === '')
         {
             // No result -- likely due to missing API key.
