@@ -6,6 +6,7 @@ export let searchApiTemplate = _.template('\
         </p>\
         <div id="bibimport-search-header"></div>\
         <div id="bibimport-search-result-sowiport" class="bibimport-search-result"></div>\
+        <div id="bibimport-search-result-scmkg" class="bibimport-search-result"></div>\
         <div id="bibimport-search-result-datacite" class="bibimport-search-result"></div>\
         <div id="bibimport-search-result-crossref" class="bibimport-search-result"></div>\
         <div id="bibimport-search-result-worldcat" class="bibimport-search-result"></div>\
