@@ -9,7 +9,7 @@ Currently these citation sources are supported: Worldcat, Sowiport, Crossref,
 Datacite.
 
 
- Note For Developers:
+Note For Developers:
 -----------
 If you are not a developer and only want to use the plugin skip this part and go directly to Installation section.
 
