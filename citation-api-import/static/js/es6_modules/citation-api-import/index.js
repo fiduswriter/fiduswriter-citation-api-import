@@ -17,10 +17,11 @@ export class BibLatexApiImporter {
 
     init() {
         // Add search providers
+        this.searchers.push(new SCMKGSearcher(this))
         this.searchers.push(new DataciteSearcher(this))
-        this.searchers.push(new CrossrefSearcher(this))
-        this.searchers.push(new SowiportSearcher(this))
-        this.searchers.push(new WorldcatSearcher(this))
+        //this.searchers.push(new CrossrefSearcher(this))
+        //this.searchers.push(new SowiportSearcher(this))
+        //this.searchers.push(new WorldcatSearcher(this))
         // Add form to DOM
         this.dialog = jQuery(searchApiTemplate({}))
         this.dialog.dialog({

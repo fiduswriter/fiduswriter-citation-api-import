@@ -9,49 +9,37 @@ export class SCMKGSearcher {
     bind() {
         let that = this
         jQuery('#bibimport-search-result-scmkg .api-import').on('click', function () {
-            let id = jQuery(this).attr('data-id')
-            that.getBibtex(id)
+            let title = jQuery(this).attr('title')
+	    let authors = jQuery(this).attr('authors')
+            let pages = jQuery(this).attr('pages')
+	    let year = jQuery(this).attr('year')
+            that.makeBibtex(title, authors, pages, year)
         })
     }
 
 
     makeAuthorPapersSparqlQuery(authorName) {
-        squery = `SELECT  distinct ?paperTitle ?year ?pages  ?authorName    (group_concat(distinct ?authorName2;separator="; ")
-  as ?authorNames) 
-WHERE {
-  ?paper <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Document> .
 
-  ?paper <http://purl.org/dc/elements/1.1/creator>   ?author .
-?author <http://www.w3.org/2000/01/rdf-schema#label> ?authorName .
-?paper <http://purl.org/dc/elements/1.1/title> ?paperTitle .
-?paper <http://purl.org/dc/terms/issued>  ?year .
-?paper  <http://swrc.ontoware.org/ontology#pages> ?pages .
- filter( regex(?authorName, "${authorName}" )) .
+	let sparqlQuery = "SELECT%20?paperTitle%20?year%20?pages%20?authorName%20(group_concat(distinct%20?authorName2;separator=%22;%22)%20as%20?authorNames)%20WHERE%20{%20?paper%20%3Chttp://www.w3.org/1999/02/22-rdf-syntax-ns%23type%3E%20%3Chttp://xmlns.com/foaf/0.1/Document%3E%20.%20?paper%20%3Chttp://purl.org/dc/elements/1.1/creator%3E%20?author%20.%20?author%20%3Chttp://www.w3.org/2000/01/rdf-schema%23label%3E%20?authorName%20.%20?paper%20%3Chttp://purl.org/dc/elements/1.1/title%3E%20?paperTitle%20.%20?paper%20%3Chttp://purl.org/dc/terms/issued%3E%20?year%20.%20?paper%20%3Chttp://swrc.ontoware.org/ontology%23pages%3E%20?pages%20.%20filter(%20regex(?authorName,%20%22"+ authorName +" %22%20,%20%22i%22%20))%20.%20?paper%20%3Chttp://purl.org/dc/elements/1.1/creator%3E%20?author2%20.%20?author2%20%3Chttp://www.w3.org/2000/01/rdf-schema%23label%3E%20?authorName2%20.%20}%20group%20by%20?paperTitle%20?year%20?pages%20?authorName%20limit%2020"
 
-   ?paper <http://purl.org/dc/elements/1.1/creator>   ?author2 .
-    ?author2 <http://www.w3.org/2000/01/rdf-schema#label> ?authorName2 .
-  
-}
-group by ?paperTitle ?year ?pages ?authorName
-LIMIT 25`
-        return squery
+	return sparqlQuery
     }
 
-    lookup(searchTerm) {
-        sparqlquery = makeAuthorPapersSparqlQuery(searchTerm)
+    lookup(authorName) {
+        let sparqlQuery = this.makeAuthorPapersSparqlQuery(authorName)
+	let completeQuery = 'http://butterbur10.iai.uni-bonn.de/SCMKG/query?query='+ sparqlQuery 
         return new Promise(resolve => {
                 jQuery.ajax({
                     data: {
                         'format': 'json',
-                        'q': searchTerm,
+                        'q': authorName,
                         'do': 'overall',
                     },
-                    dataType: "text", // DataType is an empty text string in case there is no api key.
-                    url: `/proxy/citation-api-import/http://butterbur10.iai.uni-bonn.de/SCMKG/query?query=${sparqlquery}`,
+                    dataType: "text",
+                    url: completeQuery,
                     success: result => {
                     if (result === '')
         {
-            // No result -- likely due to missing API key.
             resolve()
             return
         }
@@ -62,7 +50,7 @@ LIMIT 25`
             jQuery("#bibimport-search-result-scmkg").html('<h3>SCM-KG</h3>')
         }
         jQuery('#bibimport-search-result-scmkg').append(
-            searchApiResultSowiportTemplate({items})
+            searchApiResultSCMKGTemplate({items})
         )
         this.bind()
         resolve()
@@ -72,52 +60,18 @@ LIMIT 25`
     })
     }
 
-    getBibtex(searchTerm) {
-        isbn = isbn.replace('urn:ISBN:', '')
-        jQuery.ajax({
-                dataType: 'text',
-                method: 'GET',
 
-                url: `/proxy/citation-api-import/http://butterbur10.iai.uni-bonn.de/SCMKG/query?query=${sparqlquery}`,
-
-                success: response => {
-                let bibStr = this.isbnToBibtex(response)
-                this.importer.importBibtex(bibStr)
-    },
-        error: function (xhr) {
-            console.error(xhr.status)
-        }
-    })
-    }
-
-    isbnToBibtex(results) {
-        let objJSON = JSON.parse(JSON.stringify(results))
-        //var objJSON = eval(`(function(){return ${temp};})()`);
-
-        let title = objJSON.list[0].title
-        let isbn = objJSON.list[0].isbn
-        let year = objJSON.list[0].year
-        let editor = objJSON.list[0].ed
-        let author = objJSON.list[0].author
-        let location = objJSON.list[0].city
-        let language = objJSON.list[0].lang
-        let publisher = objJSON.list[0].publisher
-        let url = objJSON.list[0].url[0]
+    makeBibtex(title, authors, pages, year) {
         let bibStr = ''
         bibStr = bibStr.concat(
-            `@book{worldcat,`,
+            `@inproceedings{scmkg,`,
             `title={${title}},`,
-            `isbn={${isbn}},`,
             `year={${year}},`,
-            `editor={${editor}},`,
-            `author={${author}},`,
-            `location={${location}},`,
-            `language={${language}},`,
-            `publisher={${publisher}},`,
-            `url={${url}}`,
+            `author={${authors}},`,
+            `pages={${pages}}`,
             `}`
         )
-        return bibStr
+        this.importer.importBibtex(bibStr)
 
     }
 }
