@@ -26,7 +26,7 @@ export class BibLatexApiImporterCitationDialog {
 
         jQuery('.import-api').bind('click', () => {
             let apiImporter = new BibLatexApiImporter(
-                this.citationDialog.editor.bibDB,
+                this.citationDialog.editor.mod.db.bibDB,
                 bibEntries => {
                     this.citationDialog.addToCitableItems(bibEntries)
                     jQuery('.fw-checkable').unbind('click')
