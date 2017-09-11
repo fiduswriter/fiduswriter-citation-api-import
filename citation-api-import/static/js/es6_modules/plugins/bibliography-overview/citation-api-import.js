@@ -7,27 +7,22 @@ export class BibLatexApiImporterBibliographyOverview {
 
     init() {
         this.addButton()
-        this.bind()
     }
 
     addButton() {
-        let buttonHTML = `<li class="fw-document-menu-item">
-            <span class="import-api fw-button fw-light fw-large">
-                ${gettext("Import from Database")}
-                <span class="icon-plus-circle"></span>
-            </span>
-        </li>`
-        jQuery('ul.fw-document-menu').append(buttonHTML)
+        this.bibliographyOverview.menu.model.content.push({
+            type: 'button',
+            icon: 'database',
+            title: gettext('Import from Database'),
+            action: overview => {
+                let apiImporter = new BibLatexApiImporter(
+                    overview.bibDB,
+                    bibEntries => overview.addBibList(bibEntries)
+                )
+                apiImporter.init()
+            }
+        })
+        this.bibliographyOverview.menu.update()
     }
 
-    bind() {
-        //import via web api
-        jQuery('.import-api').bind('click', () => {
-            let apiImporter = new BibLatexApiImporter(
-                this.bibliographyOverview.bibDB,
-                bibEntries => this.bibliographyOverview.addBibList(bibEntries)
-            )
-            apiImporter.init()
-        })
-    }
 }
