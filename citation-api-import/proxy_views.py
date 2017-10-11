@@ -3,9 +3,14 @@ from tornado.httpclient import AsyncHTTPClient
 from base.django_handler_mixin import DjangoHandlerMixin
 from django.conf import settings
 
+
+SOWIPORT_KEY = True
+if hasattr(settings, 'SOWIPORT_KEY'):
+    SOWIPORT_KEY = settings.SOWIPORT_KEY
+
 ALLOWED_DOMAINS = {
     'sowiportbeta.gesis.org':
-        'api_key=' + settings.SOWIPORT_KEY if settings.SOWIPORT_KEY else True,
+        'api_key=' + SOWIPORT_KEY,
 }
 
 
