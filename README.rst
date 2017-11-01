@@ -5,8 +5,7 @@ FidusWriter-Citation-API-import
 FidusWriter-Citation-API-import is a Fidus Writer plugin to allow for import of
 citations from external sources via API.
 
-Currently these citation sources are supported: Sowiport, Crossref,
-Datacite.
+Currently these citation sources are supported: Crossref, Datacite and GESIS Search.
 
 
 Installation

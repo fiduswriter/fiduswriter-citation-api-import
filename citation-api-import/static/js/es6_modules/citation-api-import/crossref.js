@@ -7,52 +7,42 @@ export class CrossrefSearcher {
     }
 
     bind() {
-        let that = this
-        jQuery('#bibimport-search-result-crossref .api-import').on('click', function() {
-             let doi = jQuery(this).attr('data-doi')
-             that.getBibtex(doi)
-         })
+        [].slice.call(
+            document.querySelectorAll('#bibimport-search-result-crossref .api-import')
+        ).forEach(resultEl => {
+            let doi = resultEl.dataset.doi
+            resultEl.addEventListener('click', () => this.getBibtex(doi))
+        })
     }
 
     lookup(searchTerm) {
-        return new Promise(resolve => {
-            jQuery.ajax({
-                data: {
-                    'q': searchTerm,
-                },
-                dataType: "json",
-                url: 'https://search.crossref.org/dois',
-
-                success: items => {
-
-                    jQuery("#bibimport-search-result-crossref").empty()
-                    if (items.length) {
-                        jQuery("#bibimport-search-result-crossref").html('<h3>Crossref</h3>')
-                    }
-                    jQuery('#bibimport-search-result-crossref').append(
-                        searchApiResultCrossrefTemplate({items})
-                    )
-                    this.bind()
-                    resolve()
-                }
-            })
+        return fetch(`https://search.crossref.org/dois?q=${encodeURIComponent(searchTerm)}`, {
+            method: "GET",
+        }).then(
+            response => response.json()
+        ).then(items => {
+            let searchEl = document.getElementById('bibimport-search-result-crossref')
+            if (!searchEl) {
+                // window was closed before result was ready.
+                return
+            }
+            if (items.length) {
+                searchEl.innerHTML = searchApiResultCrossrefTemplate({items})
+            } else {
+                searchEl.innerHTML = ''
+            }
+            this.bind()
         })
     }
 
     getBibtex(doi) {
-        doi = doi.replace('https://dx.doi.org/','')
-        jQuery.ajax({
-            dataType: 'text',
-            method: 'GET',
-            url: `https://api.crossref.org/works/${doi}/transform/application/x-bibtex`,
-            success: response => {
-                this.importer.importBibtex(response)
-            },
-            error: (request, status, error) => {
-                console.error(request.responseText)
-            }
-
-        })
+        fetch(`https://api.crossref.org/works/${doi}/transform/application/x-bibtex`, {
+            method: "GET"
+        }).then(
+            response => response.text()
+        ).then(
+            bibtex => this.importer.importBibtex(bibtex)
+        )
     }
 
 }

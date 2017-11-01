@@ -7,49 +7,44 @@ export class DataciteSearcher {
     }
 
     bind() {
-        let that = this
-        jQuery('#bibimport-search-result-datacite .api-import').on('click', function() {
-            let doi = jQuery(this).attr('data-doi')
-            that.getBibtex(doi)
+        [].slice.call(
+            document.querySelectorAll('#bibimport-search-result-datacite .api-import')
+        ).forEach(resultEl => {
+            let doi = resultEl.dataset.doi
+            resultEl.addEventListener('click', () => this.getBibtex(doi))
         })
     }
 
     lookup(searchTerm) {
 
-        return new Promise(resolve => {
-            jQuery.ajax({
-                data: {
-                    'query': searchTerm
-                },
-                dataType: "json",
-                url: 'https://api.datacite.org/works?/select',
-                success: result => {
-                    let items = result['data']
-                    jQuery("#bibimport-search-result-datacite").empty()
-                    if (items.length) {
-                        jQuery("#bibimport-search-result-datacite").html('<h3>Datacite</h3>')
-                    }
-                    jQuery('#bibimport-search-result-datacite').append(
-                        searchApiResultDataciteTemplate({items})
-                    )
-                    this.bind()
-                    resolve()
-                }
-            })
+        return fetch(`https://api.datacite.org/works?query=${encodeURIComponent(searchTerm)}`, {
+            method: "GET",
+        }).then(
+            response => response.json()
+        ).then(json => {
+            let items = json['data'].map(hit => hit.attributes)
+            let searchEl = document.getElementById('bibimport-search-result-datacite')
+            if (!searchEl) {
+                // window was closed before result was ready.
+                return
+            }
+            if (items.length) {
+                searchEl.innerHTML = searchApiResultDataciteTemplate({items})
+            } else {
+                searchEl.innerHTML = ''
+            }
+            this.bind()
         })
     }
 
     getBibtex(doi) {
-        doi = encodeURIComponent(doi)
-        jQuery.ajax({
-            dataType: 'text',
-            method: 'GET',
-            url: `https://data.datacite.org/application/x-bibtex/${doi}`,
-            success: response => {
-                this.importer.importBibtex(response)
-            }
-
-        })
+        fetch(`https://data.datacite.org/application/x-bibtex/${encodeURIComponent(doi)}`, {
+            method: "GET"
+        }).then(
+            response => response.text()
+        ).then(
+            bibtex => this.importer.importBibtex(bibtex)
+        )
     }
 
 }

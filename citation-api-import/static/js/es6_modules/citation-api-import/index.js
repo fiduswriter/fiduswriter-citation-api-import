@@ -3,7 +3,7 @@ import {activateWait, deactivateWait, addAlert, csrfToken} from "../common"
 import {searchApiTemplate} from "./templates"
 import {DataciteSearcher} from "./datacite"
 import {CrossrefSearcher} from "./crossref"
-import {SowiportSearcher} from "./sowiport"
+import {GesisSearcher} from "./gesis"
 
 export class BibLatexApiImporter {
     constructor(bibDB, addToListCall) {
@@ -17,7 +17,7 @@ export class BibLatexApiImporter {
         // Add search providers
         this.searchers.push(new DataciteSearcher(this))
         this.searchers.push(new CrossrefSearcher(this))
-        this.searchers.push(new SowiportSearcher(this))
+        this.searchers.push(new GesisSearcher(this))
         // Add form to DOM
         this.dialog = jQuery(searchApiTemplate({}))
         this.dialog.dialog({
@@ -42,33 +42,39 @@ export class BibLatexApiImporter {
 
         // Auto search for text 4 chars and longer
         document.getElementById('bibimport-search-text').addEventListener('input', () => {
-            let searchTerm = jQuery("#bibimport-search-text").val()
+            let searchTerm = document.getElementById("bibimport-search-text").value
 
             if (searchTerm.length > 3) {
-                jQuery(".bibimport-search-result").empty()
-                jQuery("#bibimport-search-header").html(gettext('Looking...'))
+                [].slice.call(document.querySelectorAll('.bibimport-search-result')).forEach(
+                    searchEl => searchEl.innerHTML = ''
+                )
+                document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')
                 this.search(searchTerm)
             }
         })
         // Search per button press for text between 2 and 3 chars.
         document.getElementById('bibimport-search-button').addEventListener('click', () => {
-            let searchTerm = jQuery("#bibimport-search-text").val()
+            let searchTerm = document.getElementById("bibimport-search-text").value
 
             if(searchTerm.length > 1 && searchTerm.length < 4){
-                jQuery(".bibimport-search-result").empty()
-                jQuery("#bibimport-search-header").html(gettext('Looking...'))
+                [].slice.call(document.querySelectorAll('.bibimport-search-result')).forEach(
+                    searchEl => searchEl.innerHTML = ''
+                )
+                document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')
                 this.search(searchTerm)
             }
         })
     }
 
     search(searchTerm) {
-        let that = this
         let lookups = this.searchers.map(searcher => searcher.lookup(searchTerm))
 
         Promise.all(lookups).then(() => {
-            // Remove 'looking...' when all searches have finished
-            jQuery("#bibimport-search-header").empty()
+            // Remove 'looking...' when all searches have finished if window is still there.
+            let searchHeader = document.getElementById('bibimport-search-header')
+            if (searchHeader) {
+                searchHeader.innerHTML = ''
+            }
         })
 
     }
