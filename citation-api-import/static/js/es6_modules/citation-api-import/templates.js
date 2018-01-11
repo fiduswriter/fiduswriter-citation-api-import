@@ -26,11 +26,15 @@ export let searchApiResultGesisTemplate = ({items}) => {
                 >
                     ${gettext('Import')}
                 </button>
-                <h3>
-                    ${escapeText(item.title)}
-                </h3>
                 ${
-                    item.person.length ?
+                    item.title ?
+                    `<h3>
+                        ${escapeText(item.title)}
+                    </h3>` :
+                    ''
+                }
+                ${
+                    item.person && item.person.length ?
                     `<p>
                         <b>${gettext('Author(s)')}:</b>
                         ${item.person.join("; ")}

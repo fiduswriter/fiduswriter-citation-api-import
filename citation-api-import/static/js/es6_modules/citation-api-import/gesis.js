@@ -60,7 +60,7 @@ export class GesisSearcher {
         }).then(
         response => response.json()
     ).then(json => {
-        let items = json['hits']['hits'].map(hit => hit._source)
+        let items = json.hits && json.hits.hits ? json.hits.hits.map(hit => hit._source) : []
         let searchEl = document.getElementById('bibimport-search-result-gesis')
         if (!searchEl) {
             // window was closed before result was ready.
