@@ -1,5 +1,5 @@
 import {setCheckableLabel} from "../../modules/common"
-import {BibLatexApiImporter} from "../../modules/citation-api-import"
+import {BibLatexApiImporter} from "../../modules/citation_api_import"
 
 export class BibLatexApiImporterCitationDialog {
     constructor(citationDialog) {
