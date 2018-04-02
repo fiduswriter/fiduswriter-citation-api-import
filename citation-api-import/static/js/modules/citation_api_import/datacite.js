@@ -1,3 +1,5 @@
+import {getJson} from "../common"
+
 import {searchApiResultDataciteTemplate} from "./templates"
 
 export class DataciteSearcher {
@@ -17,10 +19,9 @@ export class DataciteSearcher {
 
     lookup(searchTerm) {
 
-        return fetch(`https://api.datacite.org/works?query=${encodeURIComponent(searchTerm)}`, {
-            method: "GET",
-        }).then(
-            response => response.json()
+        return getJson(
+            'https://api.datacite.org/works',
+            {query: searchTerm}
         ).then(json => {
             let items = json['data'].map(hit => hit.attributes)
             let searchEl = document.getElementById('bibimport-search-result-datacite')

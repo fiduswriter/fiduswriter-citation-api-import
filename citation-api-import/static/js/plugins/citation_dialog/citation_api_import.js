@@ -26,10 +26,6 @@ export class BibLatexApiImporterCitationDialog {
             this.citationDialog.editor.mod.db.bibDB,
             bibEntries => {
                 this.citationDialog.addToCitableItems(bibEntries)
-                jQuery('.fw-checkable').unbind('click')
-                jQuery('.fw-checkable').bind('click', function() {
-                    setCheckableLabel(jQuery(this))
-                })
             }
         )
 

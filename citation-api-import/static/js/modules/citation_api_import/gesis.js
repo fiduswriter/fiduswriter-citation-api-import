@@ -1,3 +1,5 @@
+import {get} from "../common"
+
 import {
     searchApiResultGesisTemplate
 } from "./templates"
@@ -78,10 +80,14 @@ export class GesisSearcher {
 }
 
 getBibtex(id, type) {
-    fetch(`/proxy/citation-api-import/https://search.gesis.org/ajax/bibtex.php?type=${type}&docid=${id}&download=true`, {
-        method: "GET",
-        credentials: "same-origin"
-    }).then(
+    get(
+        '/proxy/citation-api-import/https://search.gesis.org/ajax/bibtex.php',
+        {
+            type,
+            docid: id,
+            download: 'true'
+        }
+    ).then(
         response => response.text()
     ).then(
         bibtex => this.importer.importBibtex(bibtex)
