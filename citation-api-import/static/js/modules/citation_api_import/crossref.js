@@ -7,9 +7,7 @@ export class CrossrefSearcher {
     }
 
     bind() {
-        [].slice.call(
-            document.querySelectorAll('#bibimport-search-result-crossref .api-import')
-        ).forEach(resultEl => {
+        document.querySelectorAll('#bibimport-search-result-crossref .api-import').forEach(resultEl => {
             let doi = resultEl.dataset.doi
             resultEl.addEventListener('click', () => this.getBibtex(doi))
         })

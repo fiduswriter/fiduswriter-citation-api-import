@@ -34,7 +34,7 @@ export class BibLatexApiImporter {
             let searchTerm = document.getElementById("bibimport-search-text").value
 
             if (searchTerm.length > 3) {
-                [].slice.call(document.querySelectorAll('.bibimport-search-result')).forEach(
+                document.querySelectorAll('.bibimport-search-result').forEach(
                     searchEl => searchEl.innerHTML = ''
                 )
                 document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')
@@ -46,7 +46,7 @@ export class BibLatexApiImporter {
             let searchTerm = document.getElementById("bibimport-search-text").value
 
             if(searchTerm.length > 1 && searchTerm.length < 4){
-                [].slice.call(document.querySelectorAll('.bibimport-search-result')).forEach(
+                document.querySelectorAll('.bibimport-search-result').forEach(
                     searchEl => searchEl.innerHTML = ''
                 )
                 document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')

@@ -9,9 +9,7 @@ export class DataciteSearcher {
     }
 
     bind() {
-        [].slice.call(
-            document.querySelectorAll('#bibimport-search-result-datacite .api-import')
-        ).forEach(resultEl => {
+        document.querySelectorAll('#bibimport-search-result-datacite .api-import').forEach(resultEl => {
             let doi = resultEl.dataset.doi
             resultEl.addEventListener('click', () => this.getBibtex(doi))
         })
