@@ -1,33 +1,34 @@
-import {searchApiResultCrossrefTemplate} from "./templates"
+import {getJson} from "../common"
 
-export class CrossrefSearcher {
+import {searchApiResultDataciteTemplate} from "./templates"
+
+export class DataciteSearcher {
 
     constructor(importer) {
         this.importer = importer
     }
 
     bind() {
-        [].slice.call(
-            document.querySelectorAll('#bibimport-search-result-crossref .api-import')
-        ).forEach(resultEl => {
+        document.querySelectorAll('#bibimport-search-result-datacite .api-import').forEach(resultEl => {
             let doi = resultEl.dataset.doi
             resultEl.addEventListener('click', () => this.getBibtex(doi))
         })
     }
 
     lookup(searchTerm) {
-        return fetch(`https://search.crossref.org/dois?q=${encodeURIComponent(searchTerm)}`, {
-            method: "GET",
-        }).then(
-            response => response.json()
-        ).then(items => {
-            let searchEl = document.getElementById('bibimport-search-result-crossref')
+
+        return getJson(
+            'https://api.datacite.org/works',
+            {query: searchTerm}
+        ).then(json => {
+            let items = json['data'].map(hit => hit.attributes)
+            let searchEl = document.getElementById('bibimport-search-result-datacite')
             if (!searchEl) {
                 // window was closed before result was ready.
                 return
             }
             if (items.length) {
-                searchEl.innerHTML = searchApiResultCrossrefTemplate({items})
+                searchEl.innerHTML = searchApiResultDataciteTemplate({items})
             } else {
                 searchEl.innerHTML = ''
             }
@@ -36,7 +37,7 @@ export class CrossrefSearcher {
     }
 
     getBibtex(doi) {
-        fetch(`https://api.crossref.org/works/${doi}/transform/application/x-bibtex`, {
+        fetch(`https://data.datacite.org/application/x-bibtex/${encodeURIComponent(doi)}`, {
             method: "GET"
         }).then(
             response => response.text()

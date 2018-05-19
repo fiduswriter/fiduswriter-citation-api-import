@@ -1,5 +1,6 @@
 import {BibLatexParser} from "biblatex-csl-converter"
-import {activateWait, deactivateWait, addAlert, csrfToken} from "../common"
+
+import {activateWait, deactivateWait, addAlert, csrfToken, Dialog} from "../common"
 import {searchApiTemplate} from "./templates"
 import {DataciteSearcher} from "./datacite"
 import {CrossrefSearcher} from "./crossref"
@@ -19,33 +20,21 @@ export class BibLatexApiImporter {
         this.searchers.push(new CrossrefSearcher(this))
         this.searchers.push(new GesisSearcher(this))
         // Add form to DOM
-        this.dialog = jQuery(searchApiTemplate({}))
-        this.dialog.dialog({
-            draggable: false,
-            resizable: false,
+        this.dialog = new Dialog({
             width: 940,
-            height: 700,
-            modal: true,
-            buttons: {
-                close: {
-                    class: "fw-button fw-orange",
-                    text: gettext('Close'),
-                    click: () => {
-                        this.dialog.dialog('close')
-                    }
-                }
-            },
-            close: () => {
-                this.dialog.dialog('destroy').remove()
-            }
+            height: 560,
+            buttons: [{type: 'close'}],
+            title: gettext("Search bibliography databases"),
+            body: searchApiTemplate()
         })
+        this.dialog.open()
 
         // Auto search for text 4 chars and longer
         document.getElementById('bibimport-search-text').addEventListener('input', () => {
             let searchTerm = document.getElementById("bibimport-search-text").value
 
             if (searchTerm.length > 3) {
-                [].slice.call(document.querySelectorAll('.bibimport-search-result')).forEach(
+                document.querySelectorAll('.bibimport-search-result').forEach(
                     searchEl => searchEl.innerHTML = ''
                 )
                 document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')
@@ -57,7 +46,7 @@ export class BibLatexApiImporter {
             let searchTerm = document.getElementById("bibimport-search-text").value
 
             if(searchTerm.length > 1 && searchTerm.length < 4){
-                [].slice.call(document.querySelectorAll('.bibimport-search-result')).forEach(
+                document.querySelectorAll('.bibimport-search-result').forEach(
                     searchEl => searchEl.innerHTML = ''
                 )
                 document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')
@@ -77,11 +66,6 @@ export class BibLatexApiImporter {
             }
         })
 
-    }
-
-    // closes dialog
-    closeDialog()  {
-        this.dialog.dialog('close')
     }
 
     importBibtex(bibtex) {
@@ -119,7 +103,7 @@ export class BibLatexApiImporter {
             this.addToListCall(newIds)
         })
 
-        this.closeDialog()
+        this.dialog.close()
     }
 
 

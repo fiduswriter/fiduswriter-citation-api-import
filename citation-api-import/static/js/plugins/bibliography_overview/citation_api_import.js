@@ -1,4 +1,4 @@
-import {BibLatexApiImporter} from "../../citation-api-import"
+import {BibLatexApiImporter} from "../../modules/citation_api_import"
 
 export class BibLatexApiImporterBibliographyOverview {
     constructor(bibliographyOverview) {

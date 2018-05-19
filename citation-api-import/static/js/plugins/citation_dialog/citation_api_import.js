@@ -1,5 +1,5 @@
-import {setCheckableLabel} from "../../common"
-import {BibLatexApiImporter} from "../../citation-api-import"
+import {setCheckableLabel} from "../../modules/common"
+import {BibLatexApiImporter} from "../../modules/citation_api_import"
 
 export class BibLatexApiImporterCitationDialog {
     constructor(citationDialog) {
@@ -26,10 +26,6 @@ export class BibLatexApiImporterCitationDialog {
             this.citationDialog.editor.mod.db.bibDB,
             bibEntries => {
                 this.citationDialog.addToCitableItems(bibEntries)
-                jQuery('.fw-checkable').unbind('click')
-                jQuery('.fw-checkable').bind('click', function() {
-                    setCheckableLabel(jQuery(this))
-                })
             }
         )
 

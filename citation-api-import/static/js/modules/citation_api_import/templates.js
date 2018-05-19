@@ -1,19 +1,17 @@
 import {escapeText} from "../common"
 
 export let searchApiTemplate = () =>
-`<div id="bibimport-api-search" title="${gettext("Search bibliography databases")}">
-        <p>
-            <input id="bibimport-search-text" class="linktitle" type="text" value=""
-                    placeholder="${gettext("Title, Author, DOI, etc.")}"/>
-            <button id="bibimport-search-button" class="fw-button fw-dark" type="button">
-                ${gettext("search")}
-            </button>
-        </p>
-        <div id="bibimport-search-header"></div>
-        <div id="bibimport-search-result-gesis" class="bibimport-search-result"></div>
-        <div id="bibimport-search-result-datacite" class="bibimport-search-result"></div>
-        <div id="bibimport-search-result-crossref" class="bibimport-search-result"></div>
-</div>`
+    `<p>
+        <input id="bibimport-search-text" class="linktitle" type="text" value=""
+                placeholder="${gettext("Title, Author, DOI, etc.")}"/>
+        <button id="bibimport-search-button" class="fw-button fw-dark" type="button">
+            ${gettext("search")}
+        </button>
+    </p>
+    <div id="bibimport-search-header"></div>
+    <div id="bibimport-search-result-gesis" class="bibimport-search-result"></div>
+    <div id="bibimport-search-result-datacite" class="bibimport-search-result"></div>
+    <div id="bibimport-search-result-crossref" class="bibimport-search-result"></div>`
 
 export let searchApiResultGesisTemplate = ({items}) => {
     return '<h3>GESIS Search</h3>' +
@@ -117,7 +115,7 @@ export let searchApiResultCrossrefTemplate = ({items}) => {
         items.map(item =>
             `<div class="item">
                 <button type="button" class="api-import fw-button fw-orange fw-small"
-                        data-doi="${item.doi.replace('https://dx.doi.org/','')}">
+                        data-doi="${item.doi.replace(/https?:\/\/(dx\.)?doi\.org\//gi,'')}">
                     ${gettext('Import')}
                 </button>
                 <h3>

@@ -1,3 +1,5 @@
+import {get} from "../common"
+
 import {
     searchApiResultGesisTemplate
 } from "./templates"
@@ -9,9 +11,7 @@ export class GesisSearcher {
     }
 
     bind() {
-        [].slice.call(
-            document.querySelectorAll('#bibimport-search-result-gesis .api-import')
-        ).forEach(resultEl => {
+        document.querySelectorAll('#bibimport-search-result-gesis .api-import').forEach(resultEl => {
             let id = resultEl.dataset.id,
                 type = resultEl.dataset.type
             resultEl.addEventListener('click', () => this.getBibtex(id, type))
@@ -78,10 +78,14 @@ export class GesisSearcher {
 }
 
 getBibtex(id, type) {
-    fetch(`/proxy/citation-api-import/https://search.gesis.org/ajax/bibtex.php?type=${type}&docid=${id}&download=true`, {
-        method: "GET",
-        credentials: "same-origin"
-    }).then(
+    get(
+        '/proxy/citation-api-import/https://search.gesis.org/ajax/bibtex.php',
+        {
+            type,
+            docid: id,
+            download: 'true'
+        }
+    ).then(
         response => response.text()
     ).then(
         bibtex => this.importer.importBibtex(bibtex)
