@@ -33,6 +33,6 @@ Installation
 Credits
 -----------
 
-This plugin has been developed by the `Opening Scholarly Communications in the Social Sciences (OSCOSS) <http://www.gesis.org/?id=10714>`_ project, financed by the German Research Foundation (DFG) and executed by the University of Bonn and GESIS – Leibniz Institute for the Social Sciences.
+This plugin has been developed by the `Opening Scholarly Communications in the Social Sciences (OSCOSS) <http://www.gesis.org/?id=10714>`_ project, financed by the German Research Foundation (DFG) and executed by the University of Bonn and GESIS - Leibniz Institute for the Social Sciences.
 
 Lead Developer: `Niloofar Azizi <https://github.com/NiloofarAzizi>`_
