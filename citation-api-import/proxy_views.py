@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from tornado.web import RequestHandler, asynchronous, HTTPError
 from tornado.httpclient import AsyncHTTPClient
 from base.django_handler_mixin import DjangoHandlerMixin
