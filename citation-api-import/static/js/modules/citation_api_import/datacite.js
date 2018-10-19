@@ -10,7 +10,7 @@ export class DataciteSearcher {
 
     bind() {
         document.querySelectorAll('#bibimport-search-result-datacite .api-import').forEach(resultEl => {
-            let doi = resultEl.dataset.doi
+            const doi = resultEl.dataset.doi
             resultEl.addEventListener('click', () => this.getBibtex(doi))
         })
     }
@@ -18,11 +18,11 @@ export class DataciteSearcher {
     lookup(searchTerm) {
 
         return getJson(
-            'https://api.datacite.org/works',
+            '/proxy/citation-api-import/https://api.datacite.org/works',
             {query: searchTerm}
         ).then(json => {
-            let items = json['data'].map(hit => hit.attributes)
-            let searchEl = document.getElementById('bibimport-search-result-datacite')
+            const items = json['data'].map(hit => hit.attributes)
+            const searchEl = document.getElementById('bibimport-search-result-datacite')
             if (!searchEl) {
                 // window was closed before result was ready.
                 return

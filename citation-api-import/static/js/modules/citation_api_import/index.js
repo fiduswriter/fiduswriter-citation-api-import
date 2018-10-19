@@ -22,7 +22,8 @@ export class BibLatexApiImporter {
         // Add form to DOM
         this.dialog = new Dialog({
             width: 940,
-            height: 560,
+            height: 760,
+            scroll: true,
             buttons: [{type: 'close'}],
             title: gettext("Search bibliography databases"),
             body: searchApiTemplate()
@@ -31,7 +32,7 @@ export class BibLatexApiImporter {
 
         // Auto search for text 4 chars and longer
         document.getElementById('bibimport-search-text').addEventListener('input', () => {
-            let searchTerm = document.getElementById("bibimport-search-text").value
+            const searchTerm = document.getElementById("bibimport-search-text").value
 
             if (searchTerm.length > 3) {
                 document.querySelectorAll('.bibimport-search-result').forEach(
@@ -43,7 +44,7 @@ export class BibLatexApiImporter {
         })
         // Search per button press for text between 2 and 3 chars.
         document.getElementById('bibimport-search-button').addEventListener('click', () => {
-            let searchTerm = document.getElementById("bibimport-search-text").value
+            const searchTerm = document.getElementById("bibimport-search-text").value
 
             if(searchTerm.length > 1 && searchTerm.length < 4){
                 document.querySelectorAll('.bibimport-search-result').forEach(
@@ -56,11 +57,11 @@ export class BibLatexApiImporter {
     }
 
     search(searchTerm) {
-        let lookups = this.searchers.map(searcher => searcher.lookup(searchTerm))
+        const lookups = this.searchers.map(searcher => searcher.lookup(searchTerm))
 
         Promise.all(lookups).then(() => {
             // Remove 'looking...' when all searches have finished if window is still there.
-            let searchHeader = document.getElementById('bibimport-search-header')
+            const searchHeader = document.getElementById('bibimport-search-header')
             if (searchHeader) {
                 searchHeader.innerHTML = ''
             }
@@ -70,14 +71,14 @@ export class BibLatexApiImporter {
 
     importBibtex(bibtex) {
         // Mostly copied from ./file.js
-        let bibData = new BibLatexParser(bibtex)
-        let tmpDB = bibData.output
+        const bibData = new BibLatexParser(bibtex)
+        const tmpDB = bibData.output
 
-        let bibKeys = Object.keys(tmpDB)
+        const bibKeys = Object.keys(tmpDB)
         // There should only be one bibkey
         // We iterate anyway, just in case there is more than one.
         bibKeys.forEach(bibKey => {
-            let bibEntry = tmpDB[bibKey]
+            const bibEntry = tmpDB[bibKey]
             // We add an empty category list for all newly imported bib entries.
             bibEntry.entry_cat = []
             // If the entry has no title, add an empty title
@@ -99,7 +100,7 @@ export class BibLatexApiImporter {
             }
         })
         this.bibDB.saveBibEntries(tmpDB, true).then(idTranslations => {
-            let newIds = idTranslations.map(idTrans => idTrans[1])
+            const newIds = idTranslations.map(idTrans => idTrans[1])
             this.addToListCall(newIds)
         })
 

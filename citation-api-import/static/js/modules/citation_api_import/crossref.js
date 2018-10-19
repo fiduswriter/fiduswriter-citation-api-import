@@ -8,7 +8,7 @@ export class CrossrefSearcher {
 
     bind() {
         document.querySelectorAll('#bibimport-search-result-crossref .api-import').forEach(resultEl => {
-            let doi = resultEl.dataset.doi
+            const doi = resultEl.dataset.doi
             resultEl.addEventListener('click', () => this.getBibtex(doi))
         })
     }
@@ -19,7 +19,7 @@ export class CrossrefSearcher {
         }).then(
             response => response.json()
         ).then(items => {
-            let searchEl = document.getElementById('bibimport-search-result-crossref')
+            const searchEl = document.getElementById('bibimport-search-result-crossref')
             if (!searchEl) {
                 // window was closed before result was ready.
                 return

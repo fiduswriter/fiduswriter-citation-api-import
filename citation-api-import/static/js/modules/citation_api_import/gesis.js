@@ -12,7 +12,7 @@ export class GesisSearcher {
 
     bind() {
         document.querySelectorAll('#bibimport-search-result-gesis .api-import').forEach(resultEl => {
-            let id = resultEl.dataset.id,
+            const id = resultEl.dataset.id,
                 type = resultEl.dataset.type
             resultEl.addEventListener('click', () => this.getBibtex(id, type))
         })
@@ -20,7 +20,7 @@ export class GesisSearcher {
 
     lookup(searchTerm) {
 
-        let searchQuery = {
+        const searchQuery = {
             "query": {
                 "bool": {
                     "must": [{
@@ -60,8 +60,8 @@ export class GesisSearcher {
         }).then(
         response => response.json()
     ).then(json => {
-        let items = json.hits && json.hits.hits ? json.hits.hits.map(hit => hit._source) : []
-        let searchEl = document.getElementById('bibimport-search-result-gesis')
+        const items = json.hits && json.hits.hits ? json.hits.hits.map(hit => hit._source) : []
+        const searchEl = document.getElementById('bibimport-search-result-gesis')
         if (!searchEl) {
             // window was closed before result was ready.
             return

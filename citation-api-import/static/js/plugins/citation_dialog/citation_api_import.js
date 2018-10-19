@@ -22,7 +22,7 @@ export class BibLatexApiImporterCitationDialog {
 
     initImporter() {
         //import via web api
-        let apiImporter = new BibLatexApiImporter(
+        const apiImporter = new BibLatexApiImporter(
             this.citationDialog.editor.mod.db.bibDB,
             bibEntries => {
                 this.citationDialog.addToCitableItems(bibEntries)

@@ -15,7 +15,7 @@ export class BibLatexApiImporterBibliographyOverview {
             icon: 'database',
             title: gettext('Import from Database'),
             action: overview => {
-                let apiImporter = new BibLatexApiImporter(
+                const apiImporter = new BibLatexApiImporter(
                     overview.bibDB,
                     bibEntries => overview.addBibList(bibEntries)
                 )
