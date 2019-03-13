@@ -153,7 +153,7 @@ export const searchApiResultCrossrefTemplate = ({items}) => {
         items.map(item =>
             `<tr class="item">
                 <td><button type="button" class="api-import fw-button fw-orange fw-small"
-                        data-doi="${item.doi.replace(/https?:\/\/(dx\.)?doi\.org\//gi,'')}">
+                        data-doi="${item.doi.replace(/https?:\/\/(dx\.)?doi\.org\//gi, '')}">
                     ${gettext('Import')}
                 </button></td>
                 <td><h3>

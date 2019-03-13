@@ -1,6 +1,6 @@
 import {BibLatexParser} from "biblatex-csl-converter"
 
-import {activateWait, deactivateWait, addAlert, csrfToken, Dialog} from "../common"
+import {Dialog} from "../common"
 import {searchApiTemplate} from "./templates"
 import {DataciteSearcher} from "./datacite"
 import {CrossrefSearcher} from "./crossref"
@@ -22,7 +22,7 @@ export class BibLatexApiImporter {
         // Add form to DOM
         this.dialog = new Dialog({
             width: 940,
-            height: 760,
+            height: 460,
             scroll: true,
             buttons: [{type: 'close'}],
             title: gettext("Search bibliography databases"),
@@ -46,7 +46,7 @@ export class BibLatexApiImporter {
         document.getElementById('bibimport-search-button').addEventListener('click', () => {
             const searchTerm = document.getElementById("bibimport-search-text").value
 
-            if(searchTerm.length > 1 && searchTerm.length < 4){
+            if (searchTerm.length > 1 && searchTerm.length < 4){
                 document.querySelectorAll('.bibimport-search-result').forEach(
                     searchEl => searchEl.innerHTML = ''
                 )
@@ -88,7 +88,7 @@ export class BibLatexApiImporter {
             // If the entry has no date, add an uncertain date
             if (!bibEntry.fields.date) {
 
-                if(bibEntry.fields.year)
+                if (bibEntry.fields.year)
                     bibEntry.fields.date = bibEntry.fields.year
                 else
                     bibEntry.fields.date = 'uuuu'
