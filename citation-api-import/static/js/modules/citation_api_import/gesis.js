@@ -78,6 +78,7 @@ export class GesisSearcher {
 }
 
 getBibtex(id, type) {
+    this.importer.dialog.close()
     get(
         '/proxy/citation-api-import/https://search.gesis.org/ajax/bibtex.php',
         {

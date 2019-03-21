@@ -30,7 +30,6 @@ class Proxy(DjangoHandlerMixin, RequestHandler):
     # The response is asynchronous so that the getting of the data from the
     # remote server doesn't block the server connection.
     def on_response(self, response):
-        if response.error:
-            raise HTTPError(500)
-        self.write(response.body)
+        if not response.error:
+            self.write(response.body)
         self.finish()

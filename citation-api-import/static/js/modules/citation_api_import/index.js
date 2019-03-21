@@ -72,7 +72,7 @@ export class BibLatexApiImporter {
     importBibtex(bibtex) {
         // Mostly copied from ./file.js
         const bibData = new BibLatexParser(bibtex)
-        const tmpDB = bibData.output
+        const tmpDB = bibData.parse().entries
 
         const bibKeys = Object.keys(tmpDB)
         // There should only be one bibkey
@@ -103,8 +103,6 @@ export class BibLatexApiImporter {
             const newIds = idTranslations.map(idTrans => idTrans[1])
             this.addToListCall(newIds)
         })
-
-        this.dialog.close()
     }
 
 

@@ -37,6 +37,7 @@ export class DataciteSearcher {
     }
 
     getBibtex(doi) {
+        this.importer.dialog.close()
         fetch(`https://data.datacite.org/application/x-bibtex/${encodeURIComponent(doi)}`, {
             method: "GET"
         }).then(

@@ -34,6 +34,7 @@ export class CrossrefSearcher {
     }
 
     getBibtex(doi) {
+        this.importer.dialog.close()
         fetch(`https://api.crossref.org/works/${doi}/transform/application/x-bibtex`, {
             method: "GET"
         }).then(
