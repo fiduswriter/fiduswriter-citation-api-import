@@ -46,7 +46,7 @@ export class BibLatexApiImporter {
         document.getElementById('bibimport-search-button').addEventListener('click', () => {
             const searchTerm = document.getElementById("bibimport-search-text").value
 
-            if (searchTerm.length > 1 && searchTerm.length < 4){
+            if (searchTerm.length > 1 && searchTerm.length < 4) {
                 document.querySelectorAll('.bibimport-search-result').forEach(
                     searchEl => searchEl.innerHTML = ''
                 )
