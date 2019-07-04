@@ -14,7 +14,7 @@ export const searchApiTemplate = () =>
     <div id="bibimport-search-result-crossref" class="bibimport-search-result"></div>`
 
 export const searchApiResultGesisTemplate = ({items}) => {
-    return '<h3 class="fw-green-title">GESIS Search</h3><table class="fw-document-table fw-large dataTable-table">' +
+    return '<h3 class="fw-green-title">GESIS Search</h3><table class="fw-data-table fw-large dataTable-table">' +
         `<tr>
             <th></th>
             <th>${gettext('Title')}</th>
@@ -76,7 +76,7 @@ export const searchApiResultGesisTemplate = ({items}) => {
 }
 
 export const searchApiResultDataciteTemplate = ({items}) => {
-    return '<h3 class="fw-green-title">Datacite</h3><table class="fw-document-table fw-large dataTable-table">' +
+    return '<h3 class="fw-green-title">Datacite</h3><table class="fw-data-table fw-large dataTable-table">' +
         `<tr>
             <th></th>
             <th>${gettext('Title')}</th>
@@ -143,7 +143,7 @@ export const searchApiResultDataciteTemplate = ({items}) => {
 
 
 export const searchApiResultCrossrefTemplate = ({items}) => {
-    return '<h3 class="fw-green-title">Crossref</h3><table class="fw-document-table fw-large dataTable-table">' +
+    return '<h3 class="fw-green-title">Crossref</h3><table class="fw-data-table fw-large dataTable-table">' +
         `<tr>
             <th></th>
             <th>${gettext('Title/Year')}</th>
