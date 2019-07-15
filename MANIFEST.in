@@ -1,4 +1,4 @@
 include LICENSE
 include README.rst
-recursive-include citation-api-import/static *
-recursive-include citation-api-import/locale *
+recursive-include fiduswriter/citation-api-import/static *
+recursive-include fiduswriter/citation-api-import/locale *
