@@ -1,20 +1,25 @@
 import {BibLatexParser} from "biblatex-csl-converter"
 
-import {Dialog} from "../common"
+import {Dialog, ensureCSS} from "../common"
 import {searchApiTemplate} from "./templates"
 import {DataciteSearcher} from "./datacite"
 import {CrossrefSearcher} from "./crossref"
 import {GesisSearcher} from "./gesis"
 
+
+
 export class BibLatexApiImporter {
-    constructor(bibDB, addToListCall) {
+    constructor(bibDB, addToListCall, staticUrl) {
         this.bibDB = bibDB
         this.addToListCall = addToListCall
+        this.staticUrl = staticUrl
         this.dialog = false
         this.searchers = []
     }
 
     init() {
+        console.log(this.staticUrl)
+        ensureCSS(['citation_api_import.css'], this.staticUrl)
         // Add search providers
         this.searchers.push(new DataciteSearcher(this))
         this.searchers.push(new CrossrefSearcher(this))

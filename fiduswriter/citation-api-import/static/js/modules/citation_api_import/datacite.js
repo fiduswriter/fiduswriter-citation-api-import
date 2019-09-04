@@ -19,7 +19,7 @@ export class DataciteSearcher {
 
         return getJson(
             '/proxy/citation-api-import/https://api.datacite.org/works',
-            {query: searchTerm}
+            {query: escape(searchTerm)}
         ).then(json => {
             const items = json['data'].map(hit => hit.attributes)
             const searchEl = document.getElementById('bibimport-search-result-datacite')
@@ -38,7 +38,7 @@ export class DataciteSearcher {
 
     getBibtex(doi) {
         this.importer.dialog.close()
-        fetch(`https://data.datacite.org/application/x-bibtex/${encodeURIComponent(doi)}`, {
+        fetch(`https://api.datacite.org/dois/application/x-bibtex/${doi}`, {
             method: "GET"
         }).then(
             response => response.text()

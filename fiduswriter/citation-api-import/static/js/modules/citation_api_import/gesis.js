@@ -25,7 +25,7 @@ export class GesisSearcher {
                 "bool": {
                     "must": [{
                         "query_string": {
-                            "query": searchTerm
+                            "query": escape(searchTerm)
                         }
                     }],
                     "should": [ // We only search types which make sense to cite.
