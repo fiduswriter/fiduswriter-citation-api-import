@@ -1,4 +1,3 @@
-=====
 FidusWriter-Citation-API-import
 =====
 
