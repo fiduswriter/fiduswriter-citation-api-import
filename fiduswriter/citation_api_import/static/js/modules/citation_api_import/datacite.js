@@ -18,7 +18,7 @@ export class DataciteSearcher {
     lookup(searchTerm) {
 
         return getJson(
-            '/proxy/citation-api-import/https://api.datacite.org/works',
+            '/proxy/citation_api_import/https://api.datacite.org/works',
             {query: escape(searchTerm)}
         ).then(json => {
             const items = json['data'].map(hit => hit.attributes)
