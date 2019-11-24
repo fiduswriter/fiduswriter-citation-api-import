@@ -1,20 +1,25 @@
 import {BibLatexParser} from "biblatex-csl-converter"
 
-import {Dialog} from "../common"
+import {Dialog, ensureCSS} from "../common"
 import {searchApiTemplate} from "./templates"
 import {DataciteSearcher} from "./datacite"
 import {CrossrefSearcher} from "./crossref"
 import {GesisSearcher} from "./gesis"
 
+
+
 export class BibLatexApiImporter {
-    constructor(bibDB, addToListCall) {
+    constructor(bibDB, addToListCall, staticUrl) {
         this.bibDB = bibDB
         this.addToListCall = addToListCall
+        this.staticUrl = staticUrl
         this.dialog = false
         this.searchers = []
     }
 
     init() {
+        console.log(this.staticUrl)
+        ensureCSS(['citation_api_import.css'], this.staticUrl)
         // Add search providers
         this.searchers.push(new DataciteSearcher(this))
         this.searchers.push(new CrossrefSearcher(this))
@@ -46,7 +51,7 @@ export class BibLatexApiImporter {
         document.getElementById('bibimport-search-button').addEventListener('click', () => {
             const searchTerm = document.getElementById("bibimport-search-text").value
 
-            if (searchTerm.length > 1 && searchTerm.length < 4){
+            if (searchTerm.length > 1 && searchTerm.length < 4) {
                 document.querySelectorAll('.bibimport-search-result').forEach(
                     searchEl => searchEl.innerHTML = ''
                 )

@@ -25,7 +25,8 @@ export class BibLatexApiImporterCitationDialog {
             this.citationDialog.editor.mod.db.bibDB,
             bibEntries => {
                 this.citationDialog.addToCitableItems(bibEntries)
-            }
+            },
+            this.citationDialog.editor.app.config.staticUrl
         )
 
         apiImporter.init()

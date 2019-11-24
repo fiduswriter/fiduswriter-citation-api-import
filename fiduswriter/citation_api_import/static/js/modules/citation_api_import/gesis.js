@@ -25,7 +25,7 @@ export class GesisSearcher {
                 "bool": {
                     "must": [{
                         "query_string": {
-                            "query": searchTerm
+                            "query": escape(searchTerm)
                         }
                     }],
                     "should": [ // We only search types which make sense to cite.
@@ -80,7 +80,7 @@ export class GesisSearcher {
 getBibtex(id, type) {
     this.importer.dialog.close()
     get(
-        '/proxy/citation-api-import/https://search.gesis.org/ajax/bibtex.php',
+        '/proxy/citation_api_import/https://search.gesis.org/ajax/bibtex.php',
         {
             type,
             docid: id,

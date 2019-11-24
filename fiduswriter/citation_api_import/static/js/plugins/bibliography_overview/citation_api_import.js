@@ -11,13 +11,14 @@ export class BibLatexApiImporterBibliographyOverview {
 
     addButton() {
         this.bibliographyOverview.menu.model.content.push({
-            type: 'button',
+            type: 'text',
             icon: 'database',
             title: gettext('Import from Database'),
             action: overview => {
                 const apiImporter = new BibLatexApiImporter(
                     overview.app.bibDB,
-                    ids => overview.updateTable(ids)
+                    ids => overview.updateTable(ids),
+                    overview.app.config.staticUrl
                 )
                 apiImporter.init()
             }

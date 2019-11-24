@@ -14,7 +14,7 @@ export class CrossrefSearcher {
     }
 
     lookup(searchTerm) {
-        return fetch(`https://search.crossref.org/dois?q=${encodeURIComponent(searchTerm)}`, {
+        return fetch(`https://search.crossref.org/dois?q=${encodeURIComponent(escape(searchTerm))}`, {
             method: "GET",
         }).then(
             response => response.json()

@@ -1,4 +1,4 @@
-from tornado.web import RequestHandler, asynchronous, HTTPError
+from tornado.web import RequestHandler, HTTPError
 from tornado.httpclient import AsyncHTTPClient
 from base.django_handler_mixin import DjangoHandlerMixin
 
@@ -9,8 +9,7 @@ ALLOWED_DOMAINS = {
 
 
 class Proxy(DjangoHandlerMixin, RequestHandler):
-    @asynchronous
-    def get(self, url):
+    async def get(self, url):
         user = self.get_current_user()
         domain = url.split('/')[2]
         if domain not in ALLOWED_DOMAINS or not user.is_authenticated:
@@ -21,15 +20,10 @@ class Proxy(DjangoHandlerMixin, RequestHandler):
         if query:
             url += '?' + query
         http = AsyncHTTPClient()
-        http.fetch(
+        response = await http.fetch(
             url,
-            method='GET',
-            callback=self.on_response
+            method='GET'
         )
-
-    # The response is asynchronous so that the getting of the data from the
-    # remote server doesn't block the server connection.
-    def on_response(self, response):
         if not response.error:
             self.write(response.body)
         self.finish()
