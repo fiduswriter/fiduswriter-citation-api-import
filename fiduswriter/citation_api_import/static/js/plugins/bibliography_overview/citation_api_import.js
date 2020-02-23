@@ -17,8 +17,7 @@ export class BibLatexApiImporterBibliographyOverview {
             action: overview => {
                 const apiImporter = new BibLatexApiImporter(
                     overview.app.bibDB,
-                    ids => overview.updateTable(ids),
-                    overview.app.config.staticUrl
+                    ids => overview.updateTable(ids)
                 )
                 apiImporter.init()
             }
