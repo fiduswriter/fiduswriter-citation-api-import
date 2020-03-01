@@ -9,17 +9,15 @@ import {GesisSearcher} from "./gesis"
 
 
 export class BibLatexApiImporter {
-    constructor(bibDB, addToListCall, staticUrl) {
+    constructor(bibDB, addToListCall) {
         this.bibDB = bibDB
         this.addToListCall = addToListCall
-        this.staticUrl = staticUrl
         this.dialog = false
         this.searchers = []
     }
 
     init() {
-        console.log(this.staticUrl)
-        ensureCSS(['citation_api_import.css'], this.staticUrl)
+        ensureCSS(['citation_api_import.css'])
         // Add search providers
         this.searchers.push(new DataciteSearcher(this))
         this.searchers.push(new CrossrefSearcher(this))
