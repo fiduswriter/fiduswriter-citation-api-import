@@ -34,41 +34,41 @@ export const searchApiResultGesisTemplate = ({items}) => {
                 </button></td>
                 <td>
                 ${
-                    itemTitle ?
-                    `<h3>
+    itemTitle ?
+        `<h3>
                         ${escapeText(itemTitle)}
                     </h3>` :
-                    ''
-                }
+        ''
+}
                 </td>
                 <td>
                 ${
-                    item.person && item.person.length ?
-                    `<p>
+    item.person && item.person.length ?
+        `<p>
                         ${item.person.join("; ")}
                     </p>` :
-                    ''
-                }
+        ''
+}
                 </td>
                 <td>
                 ${
-                    item.date ?
-                    `<p>${item.date}</p>` :
-                    ''
-                }
+    item.date ?
+        `<p>${item.date}</p>` :
+        ''
+}
                 </td>
                 <td>
                 ${
-                    itemAbstract ?
-                    `<p>
+    itemAbstract ?
+        `<p>
                         ${
-                            itemAbstract.length < 200 ?
-                            escapeText(itemAbstract) :
-                            escapeText(itemAbstract.substring(0, 200)) + "..."
-                        }
+    itemAbstract.length < 200 ?
+        escapeText(itemAbstract) :
+        escapeText(itemAbstract.substring(0, 200)) + "..."
+}
                     </p>` :
-                    ''
-                }
+        ''
+}
                 </td>
             </tr>`
         }).join('') + '</table>'
@@ -95,50 +95,50 @@ export const searchApiResultDataciteTemplate = ({items}) => {
                 </h3></td>
                 <td>
                 ${
-                    item.author ?
-                    `<p>
+    item.author ?
+        `<p>
                         <b>${gettext('Author(s)')}:</b>
                         ${
-                            item.author.map(author =>
-                                 author.literal ?
-                                 author.literal :
-                                 `${author.family} ${author.given}`
-                             ).join(", ")
-                         }
+    item.author.map(author =>
+        author.literal ?
+            author.literal :
+            `${author.family} ${author.given}`
+    ).join(", ")
+}
                     </p>` :
-                    ''
-                }
+        ''
+}
                 </td>
                 <td>
                 ${
-                    item.published ?
-                    `<p><b>${gettext('Published')}:</b> ${item.published}</p>` :
-                    ''
-                }
+    item.published ?
+        `<p><b>${gettext('Published')}:</b> ${item.published}</p>` :
+        ''
+}
                 </td>
                 <td>
                 ${
-                    item.doi ?
-                    `<p><b>DOI:</b> ${item.doi}</p>` :
-                    ''
-                }
+    item.doi ?
+        `<p><b>DOI:</b> ${item.doi}</p>` :
+        ''
+}
                 </td>
                 <td>
                 ${
-                    item.description ?
-                    `<p>
+    item.description ?
+        `<p>
                         ${
-                            item.description.length < 200 ?
-                            escapeText(item.description) :
-                            escapeText(item.description.substring(0, 200)) + "..."
-                        }
+    item.description.length < 200 ?
+        escapeText(item.description) :
+        escapeText(item.description.substring(0, 200)) + "..."
+}
                     </p>` :
-                    ''
-                }
+        ''
+}
                 </td>
             </tr>`
         ).join('') + '</table>'
-    }
+}
 
 
 export const searchApiResultCrossrefTemplate = ({items}) => {
@@ -157,30 +157,30 @@ export const searchApiResultCrossrefTemplate = ({items}) => {
                 </button></td>
                 <td><h3>
                     ${
-                        item.fullCitation ?
-                        item.fullCitation :
-                        `${item.title} ${item.year}`
-                    }
+    item.fullCitation ?
+        item.fullCitation :
+        `${item.title} ${item.year}`
+}
                 </h3></td>
                 <td>
                 ${
-                    item.doi ?
-                    `<p><b>DOI:</b> ${item.doi}</p>` :
-                    ''
-                }
+    item.doi ?
+        `<p><b>DOI:</b> ${item.doi}</p>` :
+        ''
+}
                 </td>
                 <td>
                 ${
-                    item.description ?
-                    `<p>
+    item.description ?
+        `<p>
                         ${
-                            item.description.length < 200 ?
-                            escapeText(item.description) :
-                            escapeText(item.description.substring(0, 200)) + "..."
-                        }
+    item.description.length < 200 ?
+        escapeText(item.description) :
+        escapeText(item.description.substring(0, 200)) + "..."
+}
                     </p>` :
-                    ''
-                }
+        ''
+}
                 </td>
             </tr>`
         ).join('') + '</table>'
