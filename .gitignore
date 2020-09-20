@@ -5,6 +5,8 @@ fiduswriter_citation_api_import.egg-info/
 build/
 __pycache__/
 venv/
+.envrc
+.direnv/
 fiduswriter/.transpile
 fiduswriter/media
 fiduswriter/static-libs
