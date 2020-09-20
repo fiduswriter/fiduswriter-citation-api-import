@@ -8,6 +8,8 @@ export class GesisSearcher {
 
     constructor(importer) {
         this.importer = importer
+        this.id = 'gesis'
+        this.name = 'GESIS'
     }
 
     bind() {

@@ -29,12 +29,12 @@ export class BibLatexApiImporter {
             scroll: true,
             buttons: [{type: 'close'}],
             title: gettext("Search bibliography databases"),
-            body: searchApiTemplate()
+            body: searchApiTemplate({searchers: this.searchers})
         })
         this.dialog.open()
 
         // Auto search for text 4 chars and longer
-        document.getElementById('bibimport-search-text').addEventListener('input', () => {
+        document.querySelectorAll('#bibimport-search-text,.bibimport-search-enabled').forEach(el => el.addEventListener('input', () => {
             const searchTerm = document.getElementById("bibimport-search-text").value
 
             if (searchTerm.length > 3) {
@@ -44,7 +44,7 @@ export class BibLatexApiImporter {
                 document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')
                 this.search(searchTerm)
             }
-        })
+        }))
         // Search per button press for text between 2 and 3 chars.
         document.getElementById('bibimport-search-button').addEventListener('click', () => {
             const searchTerm = document.getElementById("bibimport-search-text").value
@@ -60,7 +60,17 @@ export class BibLatexApiImporter {
     }
 
     search(searchTerm) {
-        const lookups = this.searchers.map(searcher => searcher.lookup(searchTerm))
+        if (!document.querySelector('.bibimport-search-enabled:checked')) {
+            document.getElementById("bibimport-search-header").innerHTML = gettext('Select at least one search engine.')
+            return
+        }
+        const lookups = this.searchers.map(searcher => {
+            if (document.getElementById(`bibimport-enable-${searcher.id}`).checked) {
+                return searcher.lookup(searchTerm)
+            } else {
+                return Promise.resolve()
+            }
+        })
 
         Promise.all(lookups).then(() => {
             // Remove 'looking...' when all searches have finished if window is still there.

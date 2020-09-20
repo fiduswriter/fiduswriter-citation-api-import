@@ -1,17 +1,16 @@
 import {escapeText} from "../common"
 
-export const searchApiTemplate = () =>
+export const searchApiTemplate = ({searchers}) =>
     `<p>
         <input id="bibimport-search-text" class="linktitle" type="text" value=""
-                placeholder="${gettext("Title, Author, DOI, etc.")}"/>
+                placeholder="${gettext("Title, Author, DOI, etc.")}"><br>
+        ${searchers.map(searcher => `<input type="checkbox" class="bibimport-search-enabled" id="bibimport-enable-${searcher.id}">&nbsp;${escapeText(searcher.name)}`).join(' ')}
         <button id="bibimport-search-button" class="fw-button fw-dark" type="button">
             ${gettext("search")}
         </button>
     </p>
     <div id="bibimport-search-header"></div>
-    <div id="bibimport-search-result-gesis" class="bibimport-search-result"></div>
-    <div id="bibimport-search-result-datacite" class="bibimport-search-result"></div>
-    <div id="bibimport-search-result-crossref" class="bibimport-search-result"></div>`
+    ${searchers.map(searcher => `<div id="bibimport-search-result-${searcher.id}" class="bibimport-search-result"></div>`).join('')}`
 
 export const searchApiResultGesisTemplate = ({items}) => {
     return '<h3 class="fw-green-title">GESIS Search</h3><table class="fw-data-table fw-large dataTable-table">' +

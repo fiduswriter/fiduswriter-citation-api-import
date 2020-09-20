@@ -6,6 +6,8 @@ export class DataciteSearcher {
 
     constructor(importer) {
         this.importer = importer
+        this.id = 'datacite'
+        this.name = 'Datacite'
     }
 
     bind() {

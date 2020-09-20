@@ -4,6 +4,8 @@ export class CrossrefSearcher {
 
     constructor(importer) {
         this.importer = importer
+        this.id = 'crossref'
+        this.name = 'Crossref'
     }
 
     bind() {
