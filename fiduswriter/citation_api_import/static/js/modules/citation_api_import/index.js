@@ -5,6 +5,7 @@ import {searchApiTemplate} from "./templates"
 import {DataciteSearcher} from "./datacite"
 import {CrossrefSearcher} from "./crossref"
 import {GesisSearcher} from "./gesis"
+import {PubmedSearcher} from "./pubmed"
 
 
 
@@ -22,13 +23,14 @@ export class BibLatexApiImporter {
         this.searchers.push(new DataciteSearcher(this))
         this.searchers.push(new CrossrefSearcher(this))
         this.searchers.push(new GesisSearcher(this))
+        this.searchers.push(new PubmedSearcher(this))
         // Add form to DOM
         this.dialog = new Dialog({
             width: 940,
             height: 460,
             scroll: true,
             buttons: [{type: 'close'}],
-            title: gettext("Search bibliography databases"),
+            title: gettext("Search citation databases"),
             body: searchApiTemplate({searchers: this.searchers})
         })
         this.dialog.open()

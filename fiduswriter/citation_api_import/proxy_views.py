@@ -4,7 +4,8 @@ from base.django_handler_mixin import DjangoHandlerMixin
 
 ALLOWED_DOMAINS = {
     'search.gesis.org': True,
-    'api.datacite.org': True
+    'api.datacite.org': True,
+    'www.bioinformatics.org': True
 }
 
 
