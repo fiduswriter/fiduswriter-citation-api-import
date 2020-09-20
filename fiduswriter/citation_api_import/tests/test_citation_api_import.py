@@ -81,10 +81,10 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         self.driver.find_element_by_xpath(
             '//*[normalize-space()="Import from database"]'
         ).click()
+        self.driver.find_element(By.ID, "bibimport-enable-gesis").click()
         self.driver.find_element(By.ID, "bibimport-search-text").send_keys(
             "Fish"
         )
-        self.driver.find_element(By.ID, "bibimport-enable-gesis").click()
         WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable(
                 (
