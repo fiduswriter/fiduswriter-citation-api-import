@@ -41,6 +41,7 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         self.driver.find_element_by_xpath(
             '//*[normalize-space()="Import from Database"]'
         ).click()
+        self.driver.find_element(By.ID, "bibimport-enable-crossref").click()
         self.driver.find_element(By.ID, "bibimport-search-text").send_keys(
             "Money"
         )
