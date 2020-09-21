@@ -23,7 +23,8 @@ class Proxy(DjangoHandlerMixin, RequestHandler):
         http = AsyncHTTPClient()
         response = await http.fetch(
             url,
-            method='GET'
+            method='GET',
+            request_timeout=120
         )
         if not response.error:
             self.write(response.body)
