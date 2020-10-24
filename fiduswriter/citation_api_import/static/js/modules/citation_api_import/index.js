@@ -8,7 +8,6 @@ import {GesisSearcher} from "./gesis"
 import {PubmedSearcher} from "./pubmed"
 
 
-
 export class BibLatexApiImporter {
     constructor(bibDB, addToListCall) {
         this.bibDB = bibDB
@@ -102,12 +101,11 @@ export class BibLatexApiImporter {
             }
             // If the entry has no date, add an uncertain date
             if (!bibEntry.fields.date) {
-
-                if (bibEntry.fields.year)
+                if (bibEntry.fields.year) {
                     bibEntry.fields.date = bibEntry.fields.year
-                else
+                } else {
                     bibEntry.fields.date = 'uuuu'
-
+                }
             }
             // If the entry has no editor or author, add empty author
             if (!bibEntry.fields.author && !bibEntry.fields.editor) {
