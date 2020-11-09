@@ -1,65 +1,81 @@
 msgid ""
 msgstr ""
+"Project-Id-Version: Fidus Writer citation API\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-09 21:56+0000\n"
+"Language: pt-br\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
-"Project-Id-Version: Fidus Writer citation API\n"
-"Language: pt-br\n"
 
-#: citation_api_import/static/js/modules/citation_api_import/index.js:29
-msgid "Search bibliography databases"
+#: citation_api_import/static/js/modules/citation_api_import/index.js:31
+#, fuzzy
+#| msgid "Search bibliography databases"
+msgid "Search citation databases"
 msgstr "Pesquisa bancos de dados bibliográficos"
 
-#: citation_api_import/static/js/modules/citation_api_import/index.js:39
-#: citation_api_import/static/js/modules/citation_api_import/index.js:49
+#: citation_api_import/static/js/modules/citation_api_import/index.js:43
+#: citation_api_import/static/js/modules/citation_api_import/index.js:53
 msgid "Looking..."
 msgstr "Procurando..."
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:2
+#: citation_api_import/static/js/modules/citation_api_import/index.js:61
+msgid "Select at least one search engine."
+msgstr ""
+
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:4
 msgid "Title, Author, DOI, etc."
 msgstr "Título, Autor, DOI, etc."
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:2
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:4
 msgid "search"
 msgstr "procurar"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:6
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:15
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:8
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
 msgid "Title"
 msgstr "Título"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:6
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:15
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:8
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
 msgid "Author(s)"
 msgstr "Autor(es)"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:6
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:15
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:8
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
 msgid "Published"
 msgstr "Publicado"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:6
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:8
 msgid "Abstract"
 msgstr "Resumo"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:9
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:15
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:20
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:11
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:27
 msgid "Import"
 msgstr "Importar"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:15
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:20
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:27
 msgid "DOI"
 msgstr "DOI"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:15
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:20
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:27
 msgid "Description"
 msgstr "Descrição"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:20
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
+msgid "PMID"
+msgstr ""
+
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:27
 msgid "Title/Year"
 msgstr "Título/Ano"
 
@@ -70,4 +86,3 @@ msgstr "Importar do banco de dados"
 #: citation_api_import/static/js/plugins/citation_dialog/citation_api_import.js:13
 msgid "Import from database"
 msgstr "Importar do banco de dados"
-
