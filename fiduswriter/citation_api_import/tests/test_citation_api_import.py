@@ -33,7 +33,7 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
     def test_import_on_bibliography_page(self):
         self.login_user(self.user, self.driver, self.client)
         self.driver.get(self.base_url + "/bibliography")
-        self.driver.find_element_by_xpath(
+        self.driver.find_element(By.XPATH,
             '//*[normalize-space()="Import from Database"]'
         ).click()
         self.driver.find_element(By.ID, "bibimport-enable-crossref").click()
@@ -46,7 +46,7 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         ).click()
         self.assertEqual(
             len(
-                self.driver.find_elements_by_css_selector(
+                self.driver.find_elements(By.CSS_SELECTOR,
                     ".edit-bib.fw-link-text"
                 )
             ),
@@ -65,10 +65,10 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
             EC.presence_of_element_located((By.CLASS_NAME, "editor-toolbar"))
         )
         self.driver.find_element(By.CSS_SELECTOR, ".article-body").click()
-        self.driver.find_element_by_css_selector(
+        self.driver.find_element(By.CSS_SELECTOR,
             'button[title="Cite"]'
         ).click()
-        self.driver.find_element_by_xpath(
+        self.driver.find_element(By.XPATH,
             '//*[normalize-space()="Import from database"]'
         ).click()
         self.driver.find_element(By.ID, "bibimport-enable-gesis").click()
@@ -79,13 +79,13 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
             EC.element_to_be_clickable((By.CSS_SELECTOR, "button.api-import"))
         ).click()
         self.assertEqual(
-            len(self.driver.find_elements_by_css_selector("span.delete")), 1
+            len(self.driver.find_elements(By.CSS_SELECTOR, "span.delete")), 1
         )
-        self.driver.find_element_by_xpath(
+        self.driver.find_element(By.XPATH,
             '//*[normalize-space()="Insert"]'
         ).click()
         self.assertEqual(
-            len(self.driver.find_elements_by_css_selector("span.citation")), 1
+            len(self.driver.find_elements(By.CSS_SELECTOR, "span.citation")), 1
         )
         # Edit editor explicitly
         self.driver.get(self.base_url + "/")
