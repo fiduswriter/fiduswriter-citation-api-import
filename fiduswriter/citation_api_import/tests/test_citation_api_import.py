@@ -33,8 +33,8 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
     def test_import_on_bibliography_page(self):
         self.login_user(self.user, self.driver, self.client)
         self.driver.get(self.base_url + "/bibliography")
-        self.driver.find_element(By.XPATH,
-            '//*[normalize-space()="Import from Database"]'
+        self.driver.find_element(
+            By.XPATH, '//*[normalize-space()="Import from Database"]'
         ).click()
         self.driver.find_element(By.ID, "bibimport-enable-crossref").click()
         self.driver.find_element(By.ID, "bibimport-search-text").send_keys(
@@ -46,8 +46,8 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         ).click()
         self.assertEqual(
             len(
-                self.driver.find_elements(By.CSS_SELECTOR,
-                    ".edit-bib.fw-link-text"
+                self.driver.find_elements(
+                    By.CSS_SELECTOR, ".edit-bib.fw-link-text"
                 )
             ),
             1,
@@ -65,11 +65,11 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
             EC.presence_of_element_located((By.CLASS_NAME, "editor-toolbar"))
         )
         self.driver.find_element(By.CSS_SELECTOR, ".article-body").click()
-        self.driver.find_element(By.CSS_SELECTOR,
-            'button[title="Cite"]'
+        self.driver.find_element(
+            By.CSS_SELECTOR, 'button[title="Cite"]'
         ).click()
-        self.driver.find_element(By.XPATH,
-            '//*[normalize-space()="Import from database"]'
+        self.driver.find_element(
+            By.XPATH, '//*[normalize-space()="Import from database"]'
         ).click()
         self.driver.find_element(By.ID, "bibimport-enable-gesis").click()
         self.driver.find_element(By.ID, "bibimport-search-text").send_keys(
@@ -81,8 +81,8 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         self.assertEqual(
             len(self.driver.find_elements(By.CSS_SELECTOR, "span.delete")), 1
         )
-        self.driver.find_element(By.XPATH,
-            '//*[normalize-space()="Insert"]'
+        self.driver.find_element(
+            By.XPATH, '//*[normalize-space()="Insert"]'
         ).click()
         self.assertEqual(
             len(self.driver.find_elements(By.CSS_SELECTOR, "span.citation")), 1
