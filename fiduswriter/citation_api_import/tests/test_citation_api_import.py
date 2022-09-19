@@ -8,10 +8,7 @@ from testing.selenium_helper import SeleniumHelper
 
 
 class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
-    fixtures = [
-        'initial_documenttemplates.json',
-        'initial_styles.json'
-    ]
+    fixtures = ["initial_documenttemplates.json", "initial_styles.json"]
 
     @classmethod
     def setUpClass(cls):
@@ -30,9 +27,7 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
 
     def setUp(self):
         self.user = self.create_user(
-            username='Yeti',
-            email='yeti@snowman.com',
-            passtext='otter1'
+            username="Yeti", email="yeti@snowman.com", passtext="otter1"
         )
 
     def test_import_on_bibliography_page(self):
@@ -47,18 +42,15 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         )
         time.sleep(5)
         WebDriverWait(self.driver, 5).until(
-            EC.element_to_be_clickable(
-                (
-                    By.CSS_SELECTOR,
-                    "button.api-import"
-                )
-            )
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "button.api-import"))
         ).click()
         self.assertEqual(
-            len(self.driver.find_elements_by_css_selector(
-                '.edit-bib.fw-link-text'
-            )),
-            1
+            len(
+                self.driver.find_elements_by_css_selector(
+                    ".edit-bib.fw-link-text"
+                )
+            ),
+            1,
         )
 
     def test_import_in_editor(self):
@@ -66,14 +58,11 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         self.driver.get(self.base_url + "/")
         WebDriverWait(self.driver, self.wait_time).until(
             EC.element_to_be_clickable(
-                (
-                    By.CSS_SELECTOR,
-                    ".new_document button"
-                )
+                (By.CSS_SELECTOR, ".new_document button")
             )
         ).click()
         WebDriverWait(self.driver, self.wait_time).until(
-            EC.presence_of_element_located((By.CLASS_NAME, 'editor-toolbar'))
+            EC.presence_of_element_located((By.CLASS_NAME, "editor-toolbar"))
         )
         self.driver.find_element(By.CSS_SELECTOR, ".article-body").click()
         self.driver.find_element_by_css_selector(
@@ -87,27 +76,16 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
             "Fish"
         )
         WebDriverWait(self.driver, 5).until(
-            EC.element_to_be_clickable(
-                (
-                    By.CSS_SELECTOR,
-                    "button.api-import"
-                )
-            )
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "button.api-import"))
         ).click()
         self.assertEqual(
-            len(self.driver.find_elements_by_css_selector(
-                'span.delete'
-            )),
-            1
+            len(self.driver.find_elements_by_css_selector("span.delete")), 1
         )
         self.driver.find_element_by_xpath(
             '//*[normalize-space()="Insert"]'
         ).click()
         self.assertEqual(
-            len(self.driver.find_elements_by_css_selector(
-                'span.citation'
-            )),
-            1
+            len(self.driver.find_elements_by_css_selector("span.citation")), 1
         )
         # Edit editor explicitly
         self.driver.get(self.base_url + "/")
