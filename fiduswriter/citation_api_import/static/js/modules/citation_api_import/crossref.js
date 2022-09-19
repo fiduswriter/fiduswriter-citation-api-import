@@ -40,7 +40,7 @@ export class CrossrefSearcher {
         fetch(`https://api.crossref.org/v1/works/${doi}/transform`, {
             method: "GET",
             headers: {
-                'Accept': 'application/x-bibtex'
+                "Accept": "application/x-bibtex"
             }
         }).then(
             response => response.text()
