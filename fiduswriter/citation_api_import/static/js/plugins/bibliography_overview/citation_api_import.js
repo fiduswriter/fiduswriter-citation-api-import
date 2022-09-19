@@ -11,9 +11,9 @@ export class BibLatexApiImporterBibliographyOverview {
 
     addButton() {
         this.bibliographyOverview.menu.model.content.push({
-            type: 'text',
-            icon: 'database',
-            title: gettext('Import from Database'),
+            type: "text",
+            icon: "database",
+            title: gettext("Import from Database"),
             action: overview => {
                 const apiImporter = new BibLatexApiImporter(
                     overview.app.bibDB,

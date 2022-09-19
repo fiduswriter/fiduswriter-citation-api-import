@@ -17,7 +17,7 @@ export class BibLatexApiImporter {
     }
 
     init() {
-        ensureCSS(['citation_api_import.css'])
+        ensureCSS(["citation_api_import.css"])
         // Add search providers
         this.searchers.push(new DataciteSearcher(this))
         this.searchers.push(new CrossrefSearcher(this))
@@ -28,41 +28,41 @@ export class BibLatexApiImporter {
             width: 940,
             height: 460,
             scroll: true,
-            buttons: [{type: 'close'}],
+            buttons: [{type: "close"}],
             title: gettext("Search citation databases"),
             body: searchApiTemplate({searchers: this.searchers})
         })
         this.dialog.open()
 
         // Auto search for text 4 chars and longer
-        document.querySelectorAll('#bibimport-search-text,.bibimport-search-enabled').forEach(el => el.addEventListener('input', () => {
+        document.querySelectorAll("#bibimport-search-text,.bibimport-search-enabled").forEach(el => el.addEventListener("input", () => {
             const searchTerm = document.getElementById("bibimport-search-text").value
 
             if (searchTerm.length > 3) {
-                document.querySelectorAll('.bibimport-search-result').forEach(
-                    searchEl => searchEl.innerHTML = ''
+                document.querySelectorAll(".bibimport-search-result").forEach(
+                    searchEl => searchEl.innerHTML = ""
                 )
-                document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')
+                document.getElementById("bibimport-search-header").innerHTML = gettext("Looking...")
                 this.search(searchTerm)
             }
         }))
         // Search per button press for text between 2 and 3 chars.
-        document.getElementById('bibimport-search-button').addEventListener('click', () => {
+        document.getElementById("bibimport-search-button").addEventListener("click", () => {
             const searchTerm = document.getElementById("bibimport-search-text").value
 
             if (searchTerm.length > 1 && searchTerm.length < 4) {
-                document.querySelectorAll('.bibimport-search-result').forEach(
-                    searchEl => searchEl.innerHTML = ''
+                document.querySelectorAll(".bibimport-search-result").forEach(
+                    searchEl => searchEl.innerHTML = ""
                 )
-                document.getElementById("bibimport-search-header").innerHTML = gettext('Looking...')
+                document.getElementById("bibimport-search-header").innerHTML = gettext("Looking...")
                 this.search(searchTerm)
             }
         })
     }
 
     search(searchTerm) {
-        if (!document.querySelector('.bibimport-search-enabled:checked')) {
-            document.getElementById("bibimport-search-header").innerHTML = gettext('Select at least one search engine.')
+        if (!document.querySelector(".bibimport-search-enabled:checked")) {
+            document.getElementById("bibimport-search-header").innerHTML = gettext("Select at least one search engine.")
             return
         }
         const lookups = this.searchers.map(searcher => {
@@ -75,9 +75,9 @@ export class BibLatexApiImporter {
 
         Promise.all(lookups).then(() => {
             // Remove 'looking...' when all searches have finished if window is still there.
-            const searchHeader = document.getElementById('bibimport-search-header')
+            const searchHeader = document.getElementById("bibimport-search-header")
             if (searchHeader) {
-                searchHeader.innerHTML = ''
+                searchHeader.innerHTML = ""
             }
         })
 
@@ -104,12 +104,12 @@ export class BibLatexApiImporter {
                 if (bibEntry.fields.year) {
                     bibEntry.fields.date = bibEntry.fields.year
                 } else {
-                    bibEntry.fields.date = 'uuuu'
+                    bibEntry.fields.date = "uuuu"
                 }
             }
             // If the entry has no editor or author, add empty author
             if (!bibEntry.fields.author && !bibEntry.fields.editor) {
-                bibEntry.fields.author = [{'literal': []}]
+                bibEntry.fields.author = [{"literal": []}]
             }
         })
         this.bibDB.saveBibEntries(tmpDB, true).then(idTranslations => {

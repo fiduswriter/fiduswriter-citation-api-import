@@ -11,11 +11,11 @@ export class BibLatexApiImporterCitationDialog {
 
     addButton() {
         this.citationDialog.buttons.unshift({
-            text: gettext('Import from database'),
+            text: gettext("Import from database"),
             click: () => {
                 this.initImporter()
             },
-            class: 'fw-button fw-light fw-add-button'
+            class: "fw-button fw-light fw-add-button"
         })
     }
 

@@ -8,15 +8,15 @@ export class GesisSearcher {
 
     constructor(importer) {
         this.importer = importer
-        this.id = 'gesis'
-        this.name = 'GESIS'
+        this.id = "gesis"
+        this.name = "GESIS"
     }
 
     bind() {
-        document.querySelectorAll('#bibimport-search-result-gesis .api-import').forEach(resultEl => {
+        document.querySelectorAll("#bibimport-search-result-gesis .api-import").forEach(resultEl => {
             const id = resultEl.dataset.id,
                 type = resultEl.dataset.type
-            resultEl.addEventListener('click', () => this.getBibtex(id, type))
+            resultEl.addEventListener("click", () => this.getBibtex(id, type))
         })
     }
 
@@ -62,8 +62,8 @@ export class GesisSearcher {
         }).then(
             response => response.json()
         ).then(json => {
-            const items = json.hits && json.hits.hits ? json.hits.hits.map(hit => hit['_source']) : []
-            const searchEl = document.getElementById('bibimport-search-result-gesis')
+            const items = json.hits && json.hits.hits ? json.hits.hits.map(hit => hit["_source"]) : []
+            const searchEl = document.getElementById("bibimport-search-result-gesis")
             if (!searchEl) {
             // window was closed before result was ready.
                 return
@@ -73,7 +73,7 @@ export class GesisSearcher {
                     items
                 })
             } else {
-                searchEl.innerHTML = ''
+                searchEl.innerHTML = ""
             }
             this.bind()
         })
@@ -82,11 +82,11 @@ export class GesisSearcher {
     getBibtex(id, type) {
         this.importer.dialog.close()
         get(
-            '/proxy/citation_api_import/https://search.gesis.org/ajax/bibtex.php',
+            "/proxy/citation_api_import/https://search.gesis.org/ajax/bibtex.php",
             {
                 type,
                 docid: id,
-                download: 'true'
+                download: "true"
             }
         ).then(
             response => response.text()

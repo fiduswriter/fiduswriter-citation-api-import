@@ -6,25 +6,25 @@ export class DataciteSearcher {
 
     constructor(importer) {
         this.importer = importer
-        this.id = 'datacite'
-        this.name = 'Datacite'
+        this.id = "datacite"
+        this.name = "Datacite"
     }
 
     bind() {
-        document.querySelectorAll('#bibimport-search-result-datacite .api-import').forEach(resultEl => {
+        document.querySelectorAll("#bibimport-search-result-datacite .api-import").forEach(resultEl => {
             const doi = resultEl.dataset.doi
-            resultEl.addEventListener('click', () => this.getBibtex(doi))
+            resultEl.addEventListener("click", () => this.getBibtex(doi))
         })
     }
 
     lookup(searchTerm) {
 
         return getJson(
-            '/proxy/citation_api_import/https://api.datacite.org/works',
+            "/proxy/citation_api_import/https://api.datacite.org/works",
             {query: escape(searchTerm)}
         ).then(json => {
-            const items = json['data'].map(hit => hit.attributes)
-            const searchEl = document.getElementById('bibimport-search-result-datacite')
+            const items = json["data"].map(hit => hit.attributes)
+            const searchEl = document.getElementById("bibimport-search-result-datacite")
             if (!searchEl) {
                 // window was closed before result was ready.
                 return
@@ -32,7 +32,7 @@ export class DataciteSearcher {
             if (items.length) {
                 searchEl.innerHTML = searchApiResultDataciteTemplate({items})
             } else {
-                searchEl.innerHTML = ''
+                searchEl.innerHTML = ""
             }
             this.bind()
         })
