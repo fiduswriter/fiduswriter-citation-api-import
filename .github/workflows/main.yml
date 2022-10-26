@@ -33,6 +33,8 @@ jobs:
         pip install coverage
         pip install coveralls
         pip install selenium
+        pip install packaging
+        pip install webdriver-manager
         pip install wheel
         pip install pip --upgrade
         pip install flake8
