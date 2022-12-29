@@ -37,13 +37,19 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
             By.XPATH, '//*[normalize-space()="Import from Database"]'
         ).click()
         self.driver.find_element(By.ID, "bibimport-enable-crossref").click()
-        self.driver.find_element(By.ID, "bibimport-search-text").send_keys("Money")
+        self.driver.find_element(By.ID, "bibimport-search-text").send_keys(
+            "Money"
+        )
         time.sleep(5)
         WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "button.api-import"))
         ).click()
         self.assertEqual(
-            len(self.driver.find_elements(By.CSS_SELECTOR, ".edit-bib.fw-link-text")),
+            len(
+                self.driver.find_elements(
+                    By.CSS_SELECTOR, ".edit-bib.fw-link-text"
+                )
+            ),
             1,
         )
 
@@ -51,25 +57,33 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         self.login_user(self.user, self.driver, self.client)
         self.driver.get(self.base_url + "/")
         WebDriverWait(self.driver, self.wait_time).until(
-            EC.element_to_be_clickable((By.CSS_SELECTOR, ".new_document button"))
+            EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, ".new_document button")
+            )
         ).click()
         WebDriverWait(self.driver, self.wait_time).until(
             EC.presence_of_element_located((By.CLASS_NAME, "editor-toolbar"))
         )
         self.driver.find_element(By.CSS_SELECTOR, ".article-body").click()
-        self.driver.find_element(By.CSS_SELECTOR, 'button[title="Cite"]').click()
+        self.driver.find_element(
+            By.CSS_SELECTOR, 'button[title="Cite"]'
+        ).click()
         self.driver.find_element(
             By.XPATH, '//*[normalize-space()="Import from database"]'
         ).click()
         self.driver.find_element(By.ID, "bibimport-enable-gesis").click()
-        self.driver.find_element(By.ID, "bibimport-search-text").send_keys("Fish")
+        self.driver.find_element(By.ID, "bibimport-search-text").send_keys(
+            "Fish"
+        )
         WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, "button.api-import"))
         ).click()
         self.assertEqual(
             len(self.driver.find_elements(By.CSS_SELECTOR, "span.delete")), 1
         )
-        self.driver.find_element(By.XPATH, '//*[normalize-space()="Insert"]').click()
+        self.driver.find_element(
+            By.XPATH, '//*[normalize-space()="Insert"]'
+        ).click()
         self.assertEqual(
             len(self.driver.find_elements(By.CSS_SELECTOR, "span.citation")), 1
         )
