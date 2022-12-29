@@ -1,1 +1,1 @@
-INSTALLED_APPS = ['citation_api_import']
+INSTALLED_APPS = ["citation_api_import"]
