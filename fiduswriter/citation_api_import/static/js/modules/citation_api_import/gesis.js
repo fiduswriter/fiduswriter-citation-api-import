@@ -57,7 +57,7 @@ export class GesisSearcher {
             }
         }
 
-        return fetch(`https://search.gesis.org/searchengine?source=${encodeURI(JSON.stringify(searchQuery))}`, {
+        return fetch(`https://search.gesis.org/searchengine?source=${encodeURI(JSON.stringify(searchQuery))}&source_content_type=${encodeURI("application/json")}`, {
             method: "GET"
         }).then(
             response => response.json()
@@ -86,7 +86,8 @@ export class GesisSearcher {
             {
                 type,
                 docid: id,
-                download: "true"
+                download: "true",
+                searchengine_mode: "ES8"
             }
         ).then(
             response => response.text()
