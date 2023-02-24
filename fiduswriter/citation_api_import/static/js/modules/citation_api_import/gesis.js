@@ -82,7 +82,7 @@ export class GesisSearcher {
     getBibtex(id, type) {
         this.importer.dialog.close()
         get(
-            "/proxy/citation_api_import/https://search.gesis.org/ajax/bibtex.php",
+            "/api/citation_api_import/proxy/https://search.gesis.org/ajax/bibtex.php",
             {
                 type,
                 docid: id,

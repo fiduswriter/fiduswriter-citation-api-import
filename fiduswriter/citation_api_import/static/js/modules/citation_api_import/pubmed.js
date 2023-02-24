@@ -19,7 +19,7 @@ export class PubmedSearcher {
 
     lookup(searchTerm) {
 
-        return get("/proxy/citation_api_import/https://www.bioinformatics.org/texmed/cgi-bin/query.cgi", {query: escape(searchTerm)}).then(
+        return get("/api/citation_api_import/https://www.bioinformatics.org/texmed/cgi-bin/query.cgi", {query: escape(searchTerm)}).then(
             response => response.text()
         ).then(
             html => {
@@ -50,7 +50,7 @@ export class PubmedSearcher {
 
     getBibtex(pmid) {
         this.importer.dialog.close()
-        return get("/proxy/citation_api_import/https://www.bioinformatics.org/texmed/cgi-bin/list.cgi", {PMID: pmid}).then(
+        return get("/api/citation_api_import/proxy/https://www.bioinformatics.org/texmed/cgi-bin/list.cgi", {PMID: pmid}).then(
             response => response.text()
         ).then(
             html => {
