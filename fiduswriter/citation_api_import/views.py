@@ -1,5 +1,4 @@
 from httpx import AsyncClient
-from urllib.parse import urljoin
 from asgiref.sync import async_to_sync, sync_to_async
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
