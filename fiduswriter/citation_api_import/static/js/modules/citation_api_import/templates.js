@@ -181,8 +181,8 @@ export const searchApiResultCrossrefTemplate = ({items}) => {
             <th>${gettext("Abstract")}</th>
         </tr>` +
         items.map(item => {
-            const publishedDate = item.published && item.published['date-parts'] ? item.published['date-parts'].map(part => part.join("-")).join(", ") : ""
-            const abstractWithoutHTML = item.abstract ? item.abstract.replace(/<[^>]*>?/gm, '') : ""
+            const publishedDate = item.published && item.published["date-parts"] ? item.published["date-parts"].map(part => part.join("-")).join(", ") : ""
+            const abstractWithoutHTML = item.abstract ? item.abstract.replace(/<[^>]*>?/gm, "") : ""
             return `<tr class="item">
                 <td><button type="button" class="api-import fw-button fw-orange fw-small"
                         data-doi="${item.DOI}">
@@ -203,7 +203,7 @@ export const searchApiResultCrossrefTemplate = ({items}) => {
     abstractWithoutHTML.length ?
         `<p>
                         ${
-        abstractWithoutHTML.length < 200 ?
+    abstractWithoutHTML.length < 200 ?
         escapeText(abstractWithoutHTML) :
         escapeText(abstractWithoutHTML.substring(0, 200)) + "..."
 }
@@ -212,5 +212,5 @@ export const searchApiResultCrossrefTemplate = ({items}) => {
 }
                 </td>
             </tr>`
-    }).join("") + "</table>"
+        }).join("") + "</table>"
 }

@@ -35,7 +35,9 @@ async def proxy(request, url):
         response = await client.get(
             url,
             headers={
-                "User-Agent": request.META.get("HTTP_USER_AGENT", "Fidus Writer"),
+                "User-Agent": request.META.get(
+                    "HTTP_USER_AGENT", "Fidus Writer"
+                ),
                 "Referer": request.META.get("HTTP_REFERER", ""),
                 "Accept": request.META.get("HTTP_ACCEPT", "application/json"),
             },
