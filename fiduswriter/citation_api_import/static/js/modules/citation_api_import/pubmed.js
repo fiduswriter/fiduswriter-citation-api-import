@@ -18,8 +18,7 @@ export class PubmedSearcher {
     }
 
     lookup(searchTerm) {
-
-        return get("/api/citation_api_import/https://www.bioinformatics.org/texmed/cgi-bin/query.cgi", {query: escape(searchTerm)}).then(
+        return get("/api/citation_api_import/proxy/https://www.bioinformatics.org/texmed/cgi-bin/query.cgi", {query: escape(searchTerm)}).then(
             response => response.text()
         ).then(
             html => {

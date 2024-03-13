@@ -176,43 +176,41 @@ export const searchApiResultCrossrefTemplate = ({items}) => {
     return "<h3 class=\"fw-green-title\">Crossref</h3><table class=\"fw-data-table fw-large dataTable-table\">" +
         `<tr>
             <th></th>
-            <th>${gettext("Title/Year")}</th>
+            <th>${gettext("Title/Published")}</th>
             <th>${gettext("DOI")}</th>
-            <th>${gettext("Description")}</th>
+            <th>${gettext("Abstract")}</th>
         </tr>` +
-        items.map(item =>
-            `<tr class="item">
+        items.map(item => {
+            const publishedDate = item.published && item.published['date-parts'] ? item.published['date-parts'].map(part => part.join("-")).join(", ") : ""
+            const abstractWithoutHTML = item.abstract ? item.abstract.replace(/<[^>]*>?/gm, '') : ""
+            return `<tr class="item">
                 <td><button type="button" class="api-import fw-button fw-orange fw-small"
-                        data-doi="${item.doi.replace(/https?:\/\/(dx\.)?doi\.org\//gi, "")}">
+                        data-doi="${item.DOI}">
                     ${gettext("Import")}
                 </button></td>
                 <td><h3>
-                    ${
-    item.fullCitation ?
-        item.fullCitation :
-        `${item.title} ${item.year}`
-}
+                    ${item.title} ${publishedDate}
                 </h3></td>
                 <td>
                 ${
-    item.doi ?
-        `<p>${item.doi}</p>` :
+    item.DOI ?
+        `<p>${item.DOI}</p>` :
         ""
 }
                 </td>
                 <td>
                 ${
-    item.description ?
+    abstractWithoutHTML.length ?
         `<p>
                         ${
-    item.description.length < 200 ?
-        escapeText(item.description) :
-        escapeText(item.description.substring(0, 200)) + "..."
+        abstractWithoutHTML.length < 200 ?
+        escapeText(abstractWithoutHTML) :
+        escapeText(abstractWithoutHTML.substring(0, 200)) + "..."
 }
                     </p>` :
         ""
 }
                 </td>
             </tr>`
-        ).join("") + "</table>"
+    }).join("") + "</table>"
 }

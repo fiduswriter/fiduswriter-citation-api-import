@@ -16,20 +16,20 @@ export class CrossrefSearcher {
     }
 
     lookup(searchTerm) {
-        return fetch(`https://search.crossref.org/dois?q=${encodeURIComponent(escape(searchTerm))}`, {
+        return fetch(`/api/citation_api_import/proxy/https://api.crossref.org/v1/works?query.bibliographic=${encodeURIComponent(escape(searchTerm))}&rows=5&select=DOI,ISBN,title,author,published,abstract`, {
             method: "GET",
         }).then(
             response => response.json()
-        ).then(items => {
+        ).then(json => {
             const searchEl = document.getElementById("bibimport-search-result-crossref")
             if (!searchEl) {
                 // window was closed before result was ready.
                 return
             }
-            if (items.length) {
-                searchEl.innerHTML = searchApiResultCrossrefTemplate({items})
-            } else {
+            if (json.status !== "ok" || !json.message.items) {
                 searchEl.innerHTML = ""
+            } else {
+                searchEl.innerHTML = searchApiResultCrossrefTemplate({items: json.message.items})
             }
             this.bind()
         })
@@ -37,7 +37,7 @@ export class CrossrefSearcher {
 
     getBibtex(doi) {
         this.importer.dialog.close()
-        fetch(`https://api.crossref.org/v1/works/${doi}/transform`, {
+        fetch(`/api/citation_api_import/proxy/https://api.crossref.org/v1/works/${encodeURIComponent(doi)}/transform`, {
             method: "GET",
             headers: {
                 "Accept": "application/x-bibtex"
