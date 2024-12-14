@@ -7,7 +7,7 @@ from testing.testcases import LiveTornadoTestCase
 from testing.selenium_helper import SeleniumHelper
 
 
-class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
+class CitationImportTest(SeleniumHelper, LiveTornadoTestCase):
     fixtures = ["initial_documenttemplates.json", "initial_styles.json"]
 
     @classmethod
@@ -64,7 +64,7 @@ class CitationImportTest(LiveTornadoTestCase, SeleniumHelper):
         WebDriverWait(self.driver, self.wait_time).until(
             EC.presence_of_element_located((By.CLASS_NAME, "editor-toolbar"))
         )
-        self.driver.find_element(By.CSS_SELECTOR, ".article-body").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".doc-body").click()
         self.driver.find_element(
             By.CSS_SELECTOR, 'button[title="Cite"]'
         ).click()

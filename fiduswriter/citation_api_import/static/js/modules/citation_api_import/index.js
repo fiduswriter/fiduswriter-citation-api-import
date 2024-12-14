@@ -1,11 +1,11 @@
 import {BibLatexParser} from "biblatex-csl-converter"
 
 import {Dialog, ensureCSS} from "../common"
-import {searchApiTemplate} from "./templates"
-import {DataciteSearcher} from "./datacite"
 import {CrossrefSearcher} from "./crossref"
+import {DataciteSearcher} from "./datacite"
 import {GesisSearcher} from "./gesis"
 import {PubmedSearcher} from "./pubmed"
+import {searchApiTemplate} from "./templates"
 
 
 export class BibLatexApiImporter {
