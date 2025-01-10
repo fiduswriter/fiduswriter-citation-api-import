@@ -14,6 +14,21 @@ on:
   workflow_dispatch:
 
 jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: |
+          pip install pip --upgrade
+          if grep version pyproject.toml | grep -q "dev";
+            then pip install https://github.com/fiduswriter/fiduswriter/archive/develop.zip;
+            else pip install https://github.com/fiduswriter/fiduswriter/archive/main.zip;
+          fi
+      - uses: pre-commit/action@v3.0.1
   test:
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +48,7 @@ jobs:
         sudo apt install libjpeg-dev python3-dev python3-pip gettext zlib1g-dev git nodejs build-essential
         cd fiduswriter
         mv ../ci/configuration.py ./
+        mv ../ci/.coveragerc ./
         pip install requests[security]
         pip install coverage
         pip install coveralls
@@ -41,14 +57,15 @@ jobs:
         pip install webdriver-manager
         pip install wheel
         pip install pip --upgrade
-        pip install flake8
-        pip install black
         if grep version pyproject.toml | grep -q "dev";
           then pip install https://github.com/fiduswriter/fiduswriter/archive/develop.zip;
           else pip install https://github.com/fiduswriter/fiduswriter/archive/main.zip;
         fi
+        if grep version pyproject.toml | grep -q "dev";
+          then pip install https://github.com/fiduswriter/fiduswriter-books/archive/develop.zip;
+          else pip install https://github.com/fiduswriter/fiduswriter-books/archive/main.zip;
+        fi
         coverage run $(which fiduswriter) setup --no-static
-        $(which fiduswriter) lint
     - name: Run test citation_api_import
       uses: nick-invision/retry@v2
       with:

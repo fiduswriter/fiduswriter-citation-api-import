@@ -7,7 +7,6 @@ import {GesisSearcher} from "./gesis"
 import {PubmedSearcher} from "./pubmed"
 import {searchApiTemplate} from "./templates"
 
-
 export class BibLatexApiImporter {
     constructor(bibDB, addToListCall) {
         this.bibDB = bibDB
@@ -35,38 +34,58 @@ export class BibLatexApiImporter {
         this.dialog.open()
 
         // Auto search for text 4 chars and longer
-        document.querySelectorAll("#bibimport-search-text,.bibimport-search-enabled").forEach(el => el.addEventListener("input", () => {
-            const searchTerm = document.getElementById("bibimport-search-text").value
+        document
+            .querySelectorAll(
+                "#bibimport-search-text,.bibimport-search-enabled"
+            )
+            .forEach(el =>
+                el.addEventListener("input", () => {
+                    const searchTerm = document.getElementById(
+                        "bibimport-search-text"
+                    ).value
 
-            if (searchTerm.length > 3) {
-                document.querySelectorAll(".bibimport-search-result").forEach(
-                    searchEl => searchEl.innerHTML = ""
-                )
-                document.getElementById("bibimport-search-header").innerHTML = gettext("Looking...")
-                this.search(searchTerm)
-            }
-        }))
+                    if (searchTerm.length > 3) {
+                        document
+                            .querySelectorAll(".bibimport-search-result")
+                            .forEach(searchEl => (searchEl.innerHTML = ""))
+                        document.getElementById(
+                            "bibimport-search-header"
+                        ).innerHTML = gettext("Looking...")
+                        this.search(searchTerm)
+                    }
+                })
+            )
         // Search per button press for text between 2 and 3 chars.
-        document.getElementById("bibimport-search-button").addEventListener("click", () => {
-            const searchTerm = document.getElementById("bibimport-search-text").value
+        document
+            .getElementById("bibimport-search-button")
+            .addEventListener("click", () => {
+                const searchTerm = document.getElementById(
+                    "bibimport-search-text"
+                ).value
 
-            if (searchTerm.length > 1 && searchTerm.length < 4) {
-                document.querySelectorAll(".bibimport-search-result").forEach(
-                    searchEl => searchEl.innerHTML = ""
-                )
-                document.getElementById("bibimport-search-header").innerHTML = gettext("Looking...")
-                this.search(searchTerm)
-            }
-        })
+                if (searchTerm.length > 1 && searchTerm.length < 4) {
+                    document
+                        .querySelectorAll(".bibimport-search-result")
+                        .forEach(searchEl => (searchEl.innerHTML = ""))
+                    document.getElementById(
+                        "bibimport-search-header"
+                    ).innerHTML = gettext("Looking...")
+                    this.search(searchTerm)
+                }
+            })
     }
 
     search(searchTerm) {
         if (!document.querySelector(".bibimport-search-enabled:checked")) {
-            document.getElementById("bibimport-search-header").innerHTML = gettext("Select at least one search engine.")
+            document.getElementById("bibimport-search-header").innerHTML =
+                gettext("Select at least one search engine.")
             return
         }
         const lookups = this.searchers.map(searcher => {
-            if (document.getElementById(`bibimport-enable-${searcher.id}`).checked) {
+            if (
+                document.getElementById(`bibimport-enable-${searcher.id}`)
+                    .checked
+            ) {
                 return searcher.lookup(searchTerm)
             } else {
                 return Promise.resolve()
@@ -75,12 +94,13 @@ export class BibLatexApiImporter {
 
         Promise.all(lookups).then(() => {
             // Remove 'looking...' when all searches have finished if window is still there.
-            const searchHeader = document.getElementById("bibimport-search-header")
+            const searchHeader = document.getElementById(
+                "bibimport-search-header"
+            )
             if (searchHeader) {
                 searchHeader.innerHTML = ""
             }
         })
-
     }
 
     importBibtex(bibtex) {
@@ -109,7 +129,7 @@ export class BibLatexApiImporter {
             }
             // If the entry has no editor or author, add empty author
             if (!bibEntry.fields.author && !bibEntry.fields.editor) {
-                bibEntry.fields.author = [{"literal": []}]
+                bibEntry.fields.author = [{literal: []}]
             }
         })
         this.bibDB.saveBibEntries(tmpDB, true).then(idTranslations => {
@@ -117,6 +137,4 @@ export class BibLatexApiImporter {
             this.addToListCall(newIds)
         })
     }
-
-
 }

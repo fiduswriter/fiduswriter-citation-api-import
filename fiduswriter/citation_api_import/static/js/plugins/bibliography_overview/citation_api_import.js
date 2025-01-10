@@ -24,5 +24,4 @@ export class BibLatexApiImporterBibliographyOverview {
         })
         this.bibliographyOverview.menu.update()
     }
-
 }

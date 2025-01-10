@@ -3,7 +3,6 @@ import {getJson} from "../common"
 import {searchApiResultDataciteTemplate} from "./templates"
 
 export class DataciteSearcher {
-
     constructor(importer) {
         this.importer = importer
         this.id = "datacite"
@@ -11,20 +10,23 @@ export class DataciteSearcher {
     }
 
     bind() {
-        document.querySelectorAll("#bibimport-search-result-datacite .api-import").forEach(resultEl => {
-            const doi = resultEl.dataset.doi
-            resultEl.addEventListener("click", () => this.getBibtex(doi))
-        })
+        document
+            .querySelectorAll("#bibimport-search-result-datacite .api-import")
+            .forEach(resultEl => {
+                const doi = resultEl.dataset.doi
+                resultEl.addEventListener("click", () => this.getBibtex(doi))
+            })
     }
 
     lookup(searchTerm) {
-
         return getJson(
             "/api/citation_api_import/proxy/https://api.datacite.org/works",
             {query: escape(searchTerm)}
         ).then(json => {
             const items = json["data"].map(hit => hit.attributes)
-            const searchEl = document.getElementById("bibimport-search-result-datacite")
+            const searchEl = document.getElementById(
+                "bibimport-search-result-datacite"
+            )
             if (!searchEl) {
                 // window was closed before result was ready.
                 return
@@ -42,11 +44,8 @@ export class DataciteSearcher {
         this.importer.dialog.close()
         fetch(`https://api.datacite.org/dois/application/x-bibtex/${doi}`, {
             method: "GET"
-        }).then(
-            response => response.text()
-        ).then(
-            bibtex => this.importer.importBibtex(bibtex)
-        )
+        })
+            .then(response => response.text())
+            .then(bibtex => this.importer.importBibtex(bibtex))
     }
-
 }
