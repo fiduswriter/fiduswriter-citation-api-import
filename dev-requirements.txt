@@ -1,3 +1,2 @@
 pre-commit==4.0.1
 fiduswriter
-fiduswriter-books

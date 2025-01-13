@@ -15,7 +15,10 @@ fiduswriter/static-collected
 fiduswriter/.coveragerc
 fiduswriter/configuration.py
 fiduswriter/fiduswriter.sql
+fiduswriter/fiduswriter.sqlite3
+fiduswriter/testdb.sqlite3
 fiduswriter/screenshots
+fiduswriter/*.json
 .transpile/
 static-libs/
 fiduswriter.sql
