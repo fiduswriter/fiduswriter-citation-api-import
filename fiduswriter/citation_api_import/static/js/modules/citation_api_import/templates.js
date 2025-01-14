@@ -238,3 +238,36 @@ export const searchApiResultCrossrefTemplate = ({items}) => {
         "</table>"
     )
 }
+
+export const searchApiResultZenonTemplate = ({items}) => {
+    return (
+        '<h3 class="fw-green-title">Zenon</h3><table class="fw-data-table fw-large dataTable-table">' +
+        `<tr>
+            <th></th>
+            <th>${gettext("Title")}</th>
+            <th>${gettext("Author(s)")}</th>
+            <th>${gettext("Published")}</th>
+        </tr>` +
+        items
+            .map(
+                item =>
+                    `<tr class="item">
+                <td><button type="button" class="api-import fw-button fw-orange fw-small"
+                        data-id="${item.id}">
+                    ${gettext("Import")}
+                </button></td>
+                <td><h3>
+                    ${item.title}
+                </h3></td>
+                <td>
+                    <p>${item.authors}</p>
+                </td>
+                <td>
+                    <p>${item.published}</p>
+                </td>
+            </tr>`
+            )
+            .join("") +
+        "</table>"
+    )
+}

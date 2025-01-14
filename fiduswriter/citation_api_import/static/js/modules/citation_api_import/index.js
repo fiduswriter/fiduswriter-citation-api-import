@@ -6,6 +6,7 @@ import {DataciteSearcher} from "./datacite"
 import {GesisSearcher} from "./gesis"
 import {PubmedSearcher} from "./pubmed"
 import {searchApiTemplate} from "./templates"
+import {ZenonSearcher} from "./zenon"
 
 export class BibLatexApiImporter {
     constructor(bibDB, addToListCall) {
@@ -22,6 +23,7 @@ export class BibLatexApiImporter {
         this.searchers.push(new CrossrefSearcher(this))
         this.searchers.push(new GesisSearcher(this))
         this.searchers.push(new PubmedSearcher(this))
+        this.searchers.push(new ZenonSearcher(this))
         // Add form to DOM
         this.dialog = new Dialog({
             width: 940,

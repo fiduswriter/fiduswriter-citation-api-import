@@ -11,6 +11,7 @@ ALLOWED_DOMAINS = {
     "api.datacite.org": True,
     "www.bioinformatics.org": True,
     "api.crossref.org": True,
+    "zenon.dainst.org": True,
 }
 
 
