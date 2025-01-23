@@ -1,5 +1,4 @@
 from httpx import AsyncClient
-from asgiref.sync import async_to_sync, sync_to_async
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_GET
 from django.http import HttpResponseForbidden
@@ -15,10 +14,8 @@ ALLOWED_DOMAINS = {
 }
 
 
-@sync_to_async
 @login_required
 @require_GET
-@async_to_sync
 async def proxy(request, url):
     domain = url.split("/")[2]
     if domain not in ALLOWED_DOMAINS:
