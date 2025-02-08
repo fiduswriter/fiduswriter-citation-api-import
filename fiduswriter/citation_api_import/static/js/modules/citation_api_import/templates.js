@@ -157,6 +157,7 @@ export const searchApiResultPubmedTemplate = ({items}) => {
             <th>${gettext("Title")}</th>
             <th>${gettext("Author(s)")}</th>
             <th>${gettext("Published")}</th>
+            <th>${gettext("Journal")}</th>
             <th>${gettext("PMID")}</th>
         </tr>` +
         items
@@ -175,6 +176,9 @@ export const searchApiResultPubmedTemplate = ({items}) => {
                 </td>
                 <td>
                     <p>${item.published}</p>
+                </td>
+                <td>
+                    <p>${item.journal}</p>
                 </td>
                 <td>
                     <p>${item.pmid}</p>
