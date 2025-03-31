@@ -36,7 +36,7 @@ export class ZenonSearcher {
             .then(response => response.text())
             .then(html => {
                 const doc = new DOMParser().parseFromString(html, "text/html")
-                const items = Array.from(doc.querySelectorAll("div.result"))
+                const items = Array.from(doc.querySelectorAll("li.result"))
                     .map(el => {
                         if (el.textContent.length === 0) {
                             return false
