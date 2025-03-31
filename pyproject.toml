@@ -5,9 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fiduswriter-citation-api-import"
 description = "A Fidus Writer plugin to import citations via API."
-version = "4.0.0"
+version = "4.0.1"
 readme = "README.md"
-license = {text = "AGPL-3.0-or-later"}
+license = "AGPL-3.0-or-later"
 authors = [
   {email = "johannes@fiduswriter.org", name = "Johannes Wilm"},
 ]
@@ -16,7 +16,6 @@ classifiers=[
   "Framework :: Django",
   "Framework :: Django :: 5.1",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: GNU Affero General Public License v3",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
