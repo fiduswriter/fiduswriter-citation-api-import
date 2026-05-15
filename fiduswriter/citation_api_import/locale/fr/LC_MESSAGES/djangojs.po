@@ -1,89 +1,101 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Fidus Writer citation API\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-17 22:03+0000\n"
+"POT-Creation-Date: 2026-05-14 13:28+0000\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
 
-#: citation_api_import/static/js/modules/citation_api_import/index.js:31
+#: citation_api_import/static/js/modules/citation_api_import/index.js:33
 msgid "Search citation databases"
 msgstr "Rechercher des bases de données de citations"
 
-#: citation_api_import/static/js/modules/citation_api_import/index.js:43
-#: citation_api_import/static/js/modules/citation_api_import/index.js:53
+#: citation_api_import/static/js/modules/citation_api_import/index.js:55
+#: citation_api_import/static/js/modules/citation_api_import/index.js:74
 msgid "Looking..."
 msgstr "Vous cherchez ..."
 
-#: citation_api_import/static/js/modules/citation_api_import/index.js:61
+#: citation_api_import/static/js/modules/citation_api_import/index.js:83
 msgid "Select at least one search engine."
 msgstr "Sélectionnez au moins un moteur de recherche."
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:4
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:6
 msgid "Title, Author, DOI, etc."
 msgstr "Titre, auteur, DOI, etc."
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:4
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:9
 msgid "search"
 msgstr "chercher"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:8
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:20
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:92
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:157
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:251
 msgid "Title"
 msgstr "Titre"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:8
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:21
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:93
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:158
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:252
 msgid "Author(s)"
 msgstr "Auteur(s)"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:8
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:22
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:94
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:159
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:253
 msgid "Published"
 msgstr "Publié"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:8
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:23
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:200
 msgid "Abstract"
 msgstr "Résumé"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:11
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:27
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:43
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:104
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:169
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:216
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:261
 msgid "Import"
 msgstr "Importation"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:27
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:95
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:199
 msgid "DOI"
 msgstr "DOI"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:17
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:27
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:96
 msgid "Description"
 msgstr "La description"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:22
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:160
+msgid "Journal"
+msgstr "Journal"
+
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:161
 msgid "PMID"
 msgstr "PMID"
 
-#: citation_api_import/static/js/modules/citation_api_import/templates.js:27
-msgid "Title/Year"
-msgstr "Titre / Année"
+#: citation_api_import/static/js/modules/citation_api_import/templates.js:198
+msgid "Title/Published"
+msgstr "Titre/Publié"
 
-#: citation_api_import/static/js/plugins/bibliography_overview/citation_api_import.js:15
+#: citation_api_import/static/js/plugins/bibliography_overview/citation_api_import.js:16
 msgid "Import from Database"
 msgstr "Importer depuis la base de données"
 
-#: citation_api_import/static/js/plugins/citation_dialog/citation_api_import.js:13
+#: citation_api_import/static/js/plugins/citation_dialog/citation_api_import.js:14
 msgid "Import from database"
 msgstr "Importer depuis la base de données"
+
+#~ msgid "Title/Year"
+#~ msgstr "Titre / Année"
 
 #~ msgid "Search bibliography databases"
 #~ msgstr "Recherche dans les bases de données bibliographiques"

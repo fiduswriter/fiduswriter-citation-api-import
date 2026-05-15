@@ -4,7 +4,7 @@ FidusWriter-Citation-API-import
 FidusWriter-Citation-API-import is a Fidus Writer plugin to allow for import of
 citations from external sources via API.
 
-Currently these citation sources are supported: Crossref, Datacite and GESIS Search.
+Currently these citation sources are supported: Crossref, Datacite, GESIS Search, and Pubmed (via EuroPMC).
 
 
 Installation
@@ -32,17 +32,7 @@ Installation
 API Keys
 --------
 
-In order to improve results and to avoid rate limiting, you can provide ab API key for Pubmed.
-
-You can do this by adding the following lines to your configuration.py file::
-
-```python
-PUBMED_API_KEY = 'your_pubmed_api_key'
-```
-
-You can obtain an API key by registering for an NCBI account and generating a key from the [NCBI API Key Management](https://www.ncbi.nlm.nih.gov/account/settings/) page.
-
-If no API key is provided, the plugin will still work but may be subject to stricter rate limits.
+No API keys are required for the currently supported citation sources. The Pubmed/EuroPMC integration uses the public REST API without authentication.
 
 Credits
 -----------

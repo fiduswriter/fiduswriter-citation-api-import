@@ -1,61 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Fidus Writer citation API\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-14 13:28+0000\n"
-"Language: bg\n"
+"POT-Creation-Date: 2026-05-14 09:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: POEditor.com\n"
 
 #: citation_api_import/static/js/modules/citation_api_import/index.js:33
 msgid "Search citation databases"
-msgstr "Търсене в бази данни с цитати"
+msgstr "Pesquisar bancos de dados de citações"
 
 #: citation_api_import/static/js/modules/citation_api_import/index.js:55
 #: citation_api_import/static/js/modules/citation_api_import/index.js:74
 msgid "Looking..."
-msgstr "Търся ..."
+msgstr "Olhando..."
 
 #: citation_api_import/static/js/modules/citation_api_import/index.js:83
 msgid "Select at least one search engine."
-msgstr "Изберете поне една търсачка."
+msgstr "Selecione pelo menos um mecanismo de pesquisa."
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:6
 msgid "Title, Author, DOI, etc."
-msgstr "Заглавие, автор, DOI и т.н."
+msgstr "Título, Autor, DOI, etc."
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:9
 msgid "search"
-msgstr "Търсене"
+msgstr "procurar"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:20
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:92
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:157
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:251
 msgid "Title"
-msgstr "Заглавие"
+msgstr "Título"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:21
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:93
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:158
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:252
 msgid "Author(s)"
-msgstr "Автор(и)"
+msgstr "Autor(es)"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:22
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:94
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:159
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:253
 msgid "Published"
-msgstr "Публикувани"
+msgstr "Publicado"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:23
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:200
 msgid "Abstract"
-msgstr "Обобщение"
+msgstr "Resumo"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:43
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:104
@@ -63,7 +70,7 @@ msgstr "Обобщение"
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:216
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:261
 msgid "Import"
-msgstr "Импортиране"
+msgstr "Importar"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:95
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:199
@@ -72,11 +79,11 @@ msgstr "DOI"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:96
 msgid "Description"
-msgstr "описание"
+msgstr "Descrição"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:160
 msgid "Journal"
-msgstr "Журнал"
+msgstr "Jornal"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:161
 msgid "PMID"
@@ -84,18 +91,12 @@ msgstr "PMID"
 
 #: citation_api_import/static/js/modules/citation_api_import/templates.js:198
 msgid "Title/Published"
-msgstr "Заглавие/Публикувано"
+msgstr "Título/Publicado"
 
 #: citation_api_import/static/js/plugins/bibliography_overview/citation_api_import.js:16
 msgid "Import from Database"
-msgstr "Импортиране от база данни"
+msgstr "Importar do banco de dados"
 
 #: citation_api_import/static/js/plugins/citation_dialog/citation_api_import.js:14
 msgid "Import from database"
-msgstr "Импортиране от база данни"
-
-#~ msgid "Title/Year"
-#~ msgstr "Заглавие / Година"
-
-#~ msgid "Search bibliography databases"
-#~ msgstr "Търсене в библиографски бази данни"
+msgstr "Importar do banco de dados"
