@@ -64,7 +64,7 @@ export class PubmedSearcher {
     constructor(importer) {
         this.importer = importer
         this.id = "pubmed"
-        this.name = "Pubmed"
+        this.name = "Pubmed (EuroPMC)"
     }
 
     bind() {
@@ -77,12 +77,17 @@ export class PubmedSearcher {
     }
 
     lookup(searchTerm) {
-        const esearchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(searchTerm)}&retmode=json&retmax=5`
-        return get(`/api/citation_api_import/proxy/${esearchUrl}`)
-            .then(response => response.json())
-            .then(esearchData => {
-                const pmids = esearchData.esearchresult?.idlist || []
-                if (!pmids.length) {
+        const searchUrl = `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${encodeURIComponent(searchTerm)}&format=json&pageSize=5&resultType=core`
+        return get(`/api/citation_api_import/proxy/${searchUrl}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`)
+                }
+                return response.json()
+            })
+            .then(data => {
+                const results = data.resultList?.result || []
+                if (!results.length) {
                     const searchEl = document.getElementById(
                         "bibimport-search-result-pubmed"
                     )
@@ -91,77 +96,45 @@ export class PubmedSearcher {
                     }
                     return
                 }
-                const efetchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${pmids.join(",")}&retmode=xml`
-                return get(`/api/citation_api_import/proxy/${efetchUrl}`)
-            })
-            .then(response => response?.text())
-            .then(xml => {
-                if (!xml) {
-                    return
-                }
-                const parser = new DOMParser()
-                const doc = parser.parseFromString(xml, "text/xml")
-                const articles = Array.from(
-                    doc.querySelectorAll("PubmedArticle")
-                )
-                const items = articles
-                    .map(article => {
-                        const pmidEl = article.querySelector("PMID")
-                        const pmid = pmidEl?.textContent || ""
-                        const authors = Array.from(
-                            article.querySelectorAll("Author")
-                        )
+
+                const items = results
+                    .map(result => {
+                        const pmid = result.pmid || ""
+                        const authors = (result.authorList?.author || [])
                             .map(author => {
-                                const lastName =
-                                    author.querySelector("LastName")
-                                        ?.textContent || ""
-                                const initials =
-                                    author.querySelector("Initials")
-                                        ?.textContent || ""
-                                const collectiveName =
-                                    author.querySelector("CollectiveName")
-                                        ?.textContent || ""
-                                if (collectiveName) {
-                                    return stripAccents(collectiveName)
+                                if (author.fullName) {
+                                    return stripAccents(author.fullName)
                                 }
-                                if (lastName && initials) {
+                                if (author.lastName && author.initials) {
                                     return stripAccents(
-                                        `${lastName} ${initials}`
+                                        `${author.lastName} ${author.initials}`
                                     )
                                 }
                                 return ""
                             })
                             .filter(name => name)
                         const authorText = authors.join(", ")
-                        const titleEl = article.querySelector("ArticleTitle")
-                        const title = titleEl
-                            ? stripAccents(
-                                  titleEl.textContent.replace(/\.$/, "")
-                              )
+                        const title = result.title
+                            ? stripAccents(result.title.replace(/\.$/, ""))
                             : ""
-                        const journalEl = article.querySelector("Journal")
-                        const isoAbbrev =
-                            journalEl?.querySelector("ISOAbbreviation")
-                                ?.textContent || ""
+                        // Extract journal title from journalInfo
+                        const journalInfo = result.journalInfo?.journal || {}
                         const journalTitle =
-                            isoAbbrev ||
-                            journalEl?.querySelector("Title")?.textContent ||
+                            journalInfo.title ||
+                            journalInfo.isoabbreviation ||
+                            journalInfo.medlineAbbreviation ||
                             ""
-                        const pubDateEl = journalEl?.querySelector("PubDate")
-                        const yearEl = pubDateEl?.querySelector("Year")
-                        const year =
-                            yearEl?.textContent ||
-                            pubDateEl?.textContent?.match(/\d{4}/)?.[0] ||
-                            ""
+                        const published = result.pubYear || ""
                         return {
                             pmid,
                             authors: authorText,
-                            published: year,
+                            published,
                             title,
                             journalTitle
                         }
                     })
                     .filter(item => item.pmid)
+
                 const searchEl = document.getElementById(
                     "bibimport-search-result-pubmed"
                 )
@@ -186,60 +159,48 @@ export class PubmedSearcher {
 
     getBibtex(pmid) {
         this.importer.dialog.close()
-        const efetchUrl = `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=${pmid}&retmode=xml`
-        get(`/api/citation_api_import/proxy/${efetchUrl}`)
-            .then(response => response.text())
-            .then(xml => {
-                const parser = new DOMParser()
-                const doc = parser.parseFromString(xml, "text/xml")
-                const article = doc.querySelector("PubmedArticle")
-                if (!article) {
+        // Use search endpoint with PMID - search by the number directly
+        const searchUrl = `https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=${pmid}&format=json&resultType=core&pageSize=1`
+        get(`/api/citation_api_import/proxy/${searchUrl}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`)
+                }
+                return response.json()
+            })
+            .then(data => {
+                const result = data.resultList?.result?.[0]
+                if (!result || !result.pmid) {
                     throw new Error("No article found")
                 }
+                const article = result
 
-                const pmidEl = article.querySelector("PMID")
-                const pmid = pmidEl?.textContent || ""
-                const authors = Array.from(article.querySelectorAll("Author"))
+                const authors = (article.authorList?.author || [])
                     .map(author => {
-                        const lastName =
-                            author.querySelector("LastName")?.textContent || ""
-                        const initials =
-                            author.querySelector("Initials")?.textContent || ""
-                        const collectiveName =
-                            author.querySelector("CollectiveName")
-                                ?.textContent || ""
-                        if (collectiveName) {
-                            return stripAccents(collectiveName)
+                        if (author.fullName) {
+                            return stripAccents(author.fullName)
                         }
-                        if (lastName && initials) {
-                            return `${stripAccents(lastName)}, ${stripAccents(initials)}`
+                        if (author.lastName && author.initials) {
+                            return `${stripAccents(author.lastName)}, ${stripAccents(author.initials)}`
                         }
                         return null
                     })
                     .filter(author => author)
                 const authorStr = authors.join(" and ")
-                const titleEl = article.querySelector("ArticleTitle")
-                const title = titleEl
-                    ? stripAccents(titleEl.textContent.replace(/\.$/, ""))
+                const title = article.title
+                    ? stripAccents(article.title.replace(/\.$/, ""))
                     : ""
-                const journalEl = article.querySelector("Journal")
-                const isoAbbrev =
-                    journalEl?.querySelector("ISOAbbreviation")?.textContent ||
-                    ""
+                // Extract journal title from journalInfo
+                const journalInfo = article.journalInfo?.journal || {}
                 const journalTitle =
-                    isoAbbrev ||
-                    journalEl?.querySelector("Title")?.textContent ||
+                    journalInfo.title ||
+                    journalInfo.isoabbreviation ||
+                    journalInfo.medlineAbbreviation ||
                     ""
-                const pubDateEl = journalEl?.querySelector("PubDate")
-                const year =
-                    pubDateEl?.querySelector("Year")?.textContent ||
-                    pubDateEl?.textContent?.match(/\d{4}/)?.[0] ||
-                    ""
-                const volume =
-                    article.querySelector("Volume")?.textContent || ""
-                const issue = article.querySelector("Issue")?.textContent || ""
-                const pages =
-                    article.querySelector("MedlinePgn")?.textContent || ""
+                const published = article.pubYear || ""
+                const volume = article.volume || ""
+                const issue = article.issue || ""
+                const pages = article.pageInfo || ""
 
                 let formattedPages = pages
                 if (pages.includes("-")) {
@@ -259,7 +220,7 @@ export class PubmedSearcher {
                 bibtex += `  author = {${authorStr}},\n`
                 bibtex += `  title = {${title}},\n`
                 bibtex += `  journal = {${stripAccents(journalTitle)}},\n`
-                bibtex += `  year = {${year}}`
+                bibtex += `  year = {${published}}`
                 if (volume) {
                     bibtex += `,\n  volume = {${volume}}`
                 }

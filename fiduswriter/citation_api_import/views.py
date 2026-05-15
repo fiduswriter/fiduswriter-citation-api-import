@@ -10,10 +10,8 @@ ALLOWED_DOMAINS = {
     "api.datacite.org": True,
     "api.crossref.org": True,
     "zenon.dainst.org": True,
-    "eutils.ncbi.nlm.nih.gov": True,
+    "www.ebi.ac.uk": True,
 }
-
-PUBMED_API_KEY = getattr(settings, "PUBMED_API_KEY", False)
 
 
 @login_required
@@ -29,11 +27,6 @@ async def proxy(request, url):
             query_string += "&" + mailto
         else:
             query_string = mailto
-    elif domain == "eutils.ncbi.nlm.nih.gov" and PUBMED_API_KEY:
-        if len(query_string):
-            query_string += f"&api_key={PUBMED_API_KEY}"
-        else:
-            query_string = f"api_key={PUBMED_API_KEY}"
     if len(query_string):
         url = f"{url}?{query_string}"
     async with AsyncClient() as client:

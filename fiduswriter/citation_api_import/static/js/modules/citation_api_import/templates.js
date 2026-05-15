@@ -178,7 +178,7 @@ export const searchApiResultPubmedTemplate = ({items}) => {
                     <p>${item.published}</p>
                 </td>
                 <td>
-                    <p>${item.journal}</p>
+                    <p>${item.journalTitle}</p>
                 </td>
                 <td>
                     <p>${item.pmid}</p>
