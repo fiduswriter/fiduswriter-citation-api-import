@@ -23,17 +23,17 @@ repos:
             language: node
             files: \.js$
             additional_dependencies: ["acorn@8.10.0"]
-    # - repo: https://github.com/awebdeveloper/pre-commit-stylelint
-    #   rev: "4200758f4cb2f53dd06898dd8dca35e4b8cfb785"
-    #   hooks:
-    #       - id: stylelint
-    #         additional_dependencies:
-    #             [
-    #                 "stylelint@15.11.0",
-    #                 "stylelint-config-standard@34.0.0",
-    #                 "stylelint-value-no-unknown-custom-properties@5.0.0",
-    #                 "postcss@8.4.32",
-    #             ]
+    - repo: https://github.com/awebdeveloper/pre-commit-stylelint
+      rev: "4200758f4cb2f53dd06898dd8dca35e4b8cfb785"
+      hooks:
+          - id: stylelint
+            additional_dependencies:
+                [
+                    "stylelint@15.11.0",
+                    "stylelint-config-standard@34.0.0",
+                    "stylelint-value-no-unknown-custom-properties@5.0.0",
+                    "postcss@8.4.32",
+                ]
     - repo: local
       hooks:
           - id: django-import-resolver
