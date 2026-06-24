@@ -1,4 +1,4 @@
-import {getJson} from "../common"
+import {getJson} from "fwtoolkit"
 
 import {searchApiResultDataciteTemplate} from "./templates"
 

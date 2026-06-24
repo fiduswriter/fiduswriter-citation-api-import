@@ -1,4 +1,4 @@
-import {get} from "../common"
+import {get} from "fwtoolkit"
 import {searchApiResultPubmedTemplate} from "./templates"
 
 // Function to replace accented characters with non-accented equivalents

@@ -1,6 +1,6 @@
 import {BibLatexParser} from "biblatex-csl-converter"
 
-import {Dialog, ensureCSS} from "../common"
+import {Dialog, ensureCSS} from "fwtoolkit"
 import {CrossrefSearcher} from "./crossref"
 import {DataciteSearcher} from "./datacite"
 import {GesisSearcher} from "./gesis"

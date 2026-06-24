@@ -1,4 +1,4 @@
-import {get} from "../common"
+import {get} from "fwtoolkit"
 import {searchApiResultZenonTemplate} from "./templates"
 
 // Function to clean names
