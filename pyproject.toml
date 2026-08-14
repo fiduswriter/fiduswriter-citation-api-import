@@ -24,4 +24,4 @@ classifiers=[
 ]
 
 [project.urls]
-repository = "https://www.github.org/fiduswriter/fiduswriter-citation-api-import"
+repository = "https://www.github.org/fiduswriter/fiduswriter-citation-api-import-plugin"
