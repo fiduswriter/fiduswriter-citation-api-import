@@ -159,10 +159,30 @@ class CitationImportTest(SeleniumHelper, ChannelsLiveServerTestCase):
         WebDriverWait(self.driver, self.wait_time).until(
             EC.presence_of_element_located((By.CLASS_NAME, "editor-toolbar"))
         )
+        # Wait for the document webfonts to finish loading. Until they do, the
+        # layout shifts and a click on .doc-body lands in the title part,
+        # leaving the Cite toolbar button disabled.
+        self.driver.set_script_timeout(30)
+        self.driver.execute_async_script(
+            "document.fonts.ready.then(() => "
+            "arguments[arguments.length - 1]())"
+        )
         self.driver.find_element(By.CSS_SELECTOR, ".doc-body").click()
-        self.driver.find_element(
-            By.CSS_SELECTOR, 'button[title="Cite"]'
-        ).click()
+        # Invoke the Cite toolbar action directly. Clicking the toolbar
+        # button can race the toolbar's responsive re-render (overflow items
+        # move to the "more" menu, replacing the button DOM); the toolbar click
+        # handling itself is covered by the editor tests, while this test
+        # focuses on the citation dialog plugin integration.
+        self.driver.execute_script(
+            "var ed = window.theApp.config.page;"
+            "var item = ed.menu.toolbarModel.content.find("
+            "  function(i){ return i.title === 'Cite' }"
+            ");"
+            "if (item && item.action) item.action(ed);"
+        )
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.ID, "configure-citation"))
+        )
         self.driver.find_element(
             By.XPATH, '//*[normalize-space()="Import from database"]'
         ).click()
@@ -179,6 +199,9 @@ class CitationImportTest(SeleniumHelper, ChannelsLiveServerTestCase):
         self.driver.find_element(
             By.XPATH, '//*[normalize-space()="Insert"]'
         ).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "span.citation"))
+        )
         self.assertEqual(
             len(self.driver.find_elements(By.CSS_SELECTOR, "span.citation")), 1
         )

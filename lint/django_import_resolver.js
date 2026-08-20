@@ -42,18 +42,20 @@ function getFidusWriterPath() {
         }
 
         // Fallback: try to find fiduswriter core by looking in parent directories
-        // Assumes fiduswriter and fiduswriter-citation-api-import-plugin are sibling directories
+        // Assumes the backend and fiduswriter-citation-api-import-plugin are sibling
+        // directories. The backend lives in fiduswriter-server-backend/fiduswriter.
         const pluginParent = path.resolve(pluginDir, "..")
-        const fiduswriterCore = path.join(
-            pluginParent,
-            "fiduswriter",
-            "fiduswriter"
-        )
-        if (
-            fs.existsSync(fiduswriterCore) &&
-            fs.statSync(fiduswriterCore).isDirectory()
-        ) {
-            return fiduswriterCore
+        const candidateCores = [
+            path.join(pluginParent, "fiduswriter", "fiduswriter"),
+            path.join(pluginParent, "fiduswriter-server-backend", "fiduswriter")
+        ]
+        for (const fiduswriterCore of candidateCores) {
+            if (
+                fs.existsSync(fiduswriterCore) &&
+                fs.statSync(fiduswriterCore).isDirectory()
+            ) {
+                return fiduswriterCore
+            }
         }
 
         throw new Error("Fidus Writer core not found")
