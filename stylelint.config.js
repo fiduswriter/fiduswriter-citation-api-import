@@ -50,6 +50,10 @@ module.exports = {
             true,
             {
                 importFrom: [
+                    path.join(
+                        fidusWriterPath,
+                        "static-libs/css/fwtoolkit/colors.css"
+                    ),
                     path.join(fidusWriterPath, "static-libs/css/colors.css")
                 ]
             }

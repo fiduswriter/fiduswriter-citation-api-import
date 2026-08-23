@@ -46,7 +46,6 @@ function getFidusWriterPath() {
         // directories. The backend lives in fiduswriter-server-backend/fiduswriter.
         const pluginParent = path.resolve(pluginDir, "..")
         const candidateCores = [
-            path.join(pluginParent, "fiduswriter", "fiduswriter"),
             path.join(pluginParent, "fiduswriter-server-backend", "fiduswriter")
         ]
         for (const fiduswriterCore of candidateCores) {
